@@ -5859,7 +5859,6 @@ export const LOCATIONS = [
       "/images/location/58/image-5.webp",
     ],
   },
-
 ];
 export const TRIVIA = [
   {
@@ -7026,22 +7025,22 @@ export const TRIVIA = [
   },
   {
     id: 104,
-    question:
-      "How many times per day does the Langland Bridge get raised?",
+    question: "How many times per day does the Langland Bridge get raised?",
     options: ["1 time", "2 times", "3 times", "4 times", "5 times", "6 times"],
     answer: "3 times",
     submittedBy: "New Creator",
   },
   {
     id: 105,
-    question:
-      "What is the name of the final boss in CS2?",
-    options: ["End of Vermillion",
-    "Loa Erebonius",
-    "Loa Luciferia",
-    "Vermillion Apocalypse",
-    "Ishmelga",
-    "Zoro-Agruga"],
+    question: "What is the name of the final boss in CS2?",
+    options: [
+      "End of Vermillion",
+      "Loa Erebonius",
+      "Loa Luciferia",
+      "Vermillion Apocalypse",
+      "Ishmelga",
+      "Zoro-Agruga",
+    ],
     answer: "Loa Luciferia",
     submittedBy: "New Creator",
   },
@@ -7049,25 +7048,14 @@ export const TRIVIA = [
     id: 106,
     question:
       "How many Enforcers do we know of dead or alive as of Kai no Kiseki?",
-    options: ["14",
-    "15",
-    "16",
-    "17",
-    "18",
-    "19"],
+    options: ["14", "15", "16", "17", "18", "19"],
     answer: "16",
     submittedBy: "New Creator",
   },
   {
     id: 107,
-    question:
-      "How many Enforcers are in ACTIVE duty as of Kai no Kiseki?",
-    options: ["8",
-    "9",
-    "10",
-    "10",
-    "12",
-    "13"],
+    question: "How many Enforcers are in ACTIVE duty as of Kai no Kiseki?",
+    options: ["8", "9", "10", "10", "12", "13"],
     answer: "10",
     submittedBy: "New Creator",
   },
@@ -7075,30 +7063,26 @@ export const TRIVIA = [
     id: 108,
     question:
       "Which Enforcer does Kondo like the least even though he created the character?",
-    options: ["Campanella",
-    "McBurn",
-    "Luciola",
-    "Walter",
-    "Bleublanc",
-    "Shirley"],
+    options: [
+      "Campanella",
+      "McBurn",
+      "Luciola",
+      "Walter",
+      "Bleublanc",
+      "Shirley",
+    ],
     answer: "Bleublanc",
     submittedBy: "New Creator",
   },
   {
     id: 109,
-    question:
-      "How many women did Anton get rejected by as far as we know?",
-    options: ["2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7"],
+    question: "How many women did Anton get rejected by as far as we know?",
+    options: ["2", "3", "4", "5", "6", "7"],
     answer: "4",
     submittedBy: "New Creator",
   },
   {
-    id: 110, 
+    id: 110,
     question: "What is the name of the fishing group in Liberl?",
     options: [
       "Angler's Guild",
@@ -7106,83 +7090,66 @@ export const TRIVIA = [
       "Fisherman's Guild",
       "Lakelord Society",
       "Zemurian Fishing Club",
-      "Fish & Rod Society"
+      "Fish & Rod Society",
     ],
     answer: "Fisherman's Guild",
     submittedBy: "New Creator",
   },
   {
-    id: 111, 
-    question: "Why did Alan, who works at Rolent's landing port, rate Kloe 100 points?",
+    id: 111,
+    question:
+      "Why did Alan, who works at Rolent's landing port, rate Kloe 100 points?",
     options: [
       "Her polite manners",
       "Her beautiful smile",
       "Her pet falcon",
       "Her Jenis uniform",
       "Her immaculate hair",
-      "Her noble aura"
+      "Her noble aura",
     ],
     answer: "Her Jenis uniform",
     submittedBy: "New Creator",
   },
   {
-    id: 112, 
-    question: "What was the airship that Estelle and Anelace used to get to Le Locle in Leman?",
-    options: [
-      "Arseille",
-      "Linde",
-      "Cecilia",
-      "Gretna",
-      "Bobcat",
-      "Lusitania"
-    ],
+    id: 112,
+    question:
+      "What was the airship that Estelle and Anelace used to get to Le Locle in Leman?",
+    options: ["Arseille", "Linde", "Cecilia", "Gretna", "Bobcat", "Lusitania"],
     answer: "Gretna",
     submittedBy: "New Creator",
   },
   {
-    id: 113, 
+    id: 113,
     question: "In what game does Crossbell first get mentioned?",
-    options: [
-      "Sky FC",
-      "Sky SC",
-      "Sky 3rd",
-      "Zero",
-      "CS1",
-      "CS2"
-    ],
+    options: ["Sky FC", "Sky SC", "Sky 3rd", "Zero", "CS1", "CS2"],
     answer: "Sky 2",
     submittedBy: "New Creator",
   },
   {
-    id: 114, 
-    question: "What vintage was the Grand Chardonnay that Olivier drank in Chapter 1 of Sky FC?",
-    options: [
-      "1181",
-      "1182",
-      "1183",
-      "1184",
-      "1185",
-      "1186"
-    ],
+    id: 114,
+    question:
+      "What vintage was the Grand Chardonnay that Olivier drank in Chapter 1 of Sky FC?",
+    options: ["1181", "1182", "1183", "1184", "1185", "1186"],
     answer: "1183",
     submittedBy: "New Creator",
   },
   {
-    id: 115, 
-    question: "What are the two courses people can study at Jenis Royal Academy?",
+    id: 115,
+    question:
+      "What are the two courses people can study at Jenis Royal Academy?",
     options: [
       "Military Arts & Political Science",
       "Orbal Sciences & Humanities",
       "Social Studies & Natural Sciences",
       "Liberal Arts & Applied Engineering",
       "Economics & International Law",
-      "General Education & Advanced Tactics"
+      "General Education & Advanced Tactics",
     ],
     answer: "Social Studies & Natural Sciences",
     submittedBy: "New Creator",
   },
   {
-    id: 116, 
+    id: 116,
     question: "Where is the family residence of General Morgan located?",
     options: [
       "East block of Grancel City",
@@ -7190,405 +7157,228 @@ export const TRIVIA = [
       "West block of Grancel City",
       "North block of Grancel City",
       "South block of Grancel City",
-      "City of Bose"
+      "City of Bose",
     ],
     answer: "West block of Grancel City",
     submittedBy: "New Creator",
   },
   {
-    id: 117, 
-    question: "When can you first find out the birthdays of both Estelle and Joshua?",
+    id: 117,
+    question:
+      "When can you first find out the birthdays of both Estelle and Joshua?",
     options: [
       "Chatper 1 of Sky FC",
       "Chatper 2 of Sky FC",
       "Chatper 3 of Sky FC",
       "Chatper 1 of Sky SC",
       "Chatper 2 of Sky SC",
-      "Chatper 3 of Sky SC"
+      "Chatper 3 of Sky SC",
     ],
     answer: "Chatper 2 of Sky FC",
     submittedBy: "New Creator",
   },
   {
-    id: 118, 
+    id: 118,
     question: "In what game do you meet Lloyd for the first time?",
-    options: [
-      "Sky FC",
-      "Sky SC",
-      "Sky 3rd",
-      "Zero",
-      "Azure",
-      "CS1"
-    ],
+    options: ["Sky FC", "Sky SC", "Sky 3rd", "Zero", "Azure", "CS1"],
     answer: "Sky FC",
     submittedBy: "New Creator",
   },
   {
-    id: 119, 
-    question: "How many fur-colour variants of Creepy Sheep exist throughout the series?",
-    options: [
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
-      "10"
-    ],
+    id: 119,
+    question:
+      "How many fur-colour variants of Creepy Sheep exist throughout the series?",
+    options: ["5", "6", "7", "8", "9", "10"],
     answer: "7",
     submittedBy: "New Creator",
   },
   {
-    id: 120, 
-    question: "How many Lost Arts exist throughout the series (not counting upgraded versions in Reverie)?",
-    options: [
-      "9",
-      "10",
-      "11",
-      "12",
-      "13",
-      "14"
-    ],
+    id: 120,
+    question:
+      "How many Lost Arts exist throughout the series (not counting upgraded versions in Reverie)?",
+    options: ["9", "10", "11", "12", "13", "14"],
     answer: "11",
     submittedBy: "New Creator",
   },
   {
-    id: 121, 
+    id: 121,
     question: "How many Master Arts exist in Azure?",
-    options: [
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
-      "10"
-    ],
+    options: ["5", "6", "7", "8", "9", "10"],
     answer: "7",
     submittedBy: "New Creator",
   },
   {
-    id: 122, 
+    id: 122,
     question: "What is Tio's default Master Quartz in Azure?",
-    options: [
-      "Scepter",
-      "Magius",
-      "Aegis",
-      "Aries",
-      "Orochi",
-      "Canon"
-    ],
+    options: ["Scepter", "Magius", "Aegis", "Aries", "Orochi", "Canon"],
     answer: "Canon",
     submittedBy: "New Creator",
   },
   {
-    id: 122, 
+    id: 122,
     question: "What is Randy's default Master Quartz in Azure?",
-    options: [
-      "Force",
-      "Axe",
-      "Chevalier",
-      "Brave",
-      "Kusanagi",
-      "Keeper"
-    ],
+    options: ["Force", "Axe", "Chevalier", "Brave", "Kusanagi", "Keeper"],
     answer: "Axe",
     submittedBy: "New Creator",
   },
   {
-    id: 123, 
-    question: "What is Master Quartz do you get as a reward for catching the Elder King in Azure?",
-    options: [
-      "Magius",
-      "Juggler",
-      "Chevalier",
-      "Wing",
-      "Kusanagi",
-      "Criminal"
-    ],
+    id: 123,
+    question:
+      "What is Master Quartz do you get as a reward for catching the Elder King in Azure?",
+    options: ["Magius", "Juggler", "Chevalier", "Wing", "Kusanagi", "Criminal"],
     answer: "Chevalier",
     submittedBy: "New Creator",
   },
   {
-    id: 124, 
-    question: "Which Master Quartz can you buy in Micht's Pawn Shop in CS1 if you miss them?",
+    id: 124,
+    question:
+      "Which Master Quartz can you buy in Micht's Pawn Shop in CS1 if you miss them?",
     options: [
       "Juggler, Tauros & Katze",
       "Magius, Moebius & Chevalier",
       "Raven, Cypher & Calamity",
       "Juggler, Pandora & Murakumo",
       "Iron, Aegis & Megalith",
-      "Criminal, Tauros & Orochi"
+      "Criminal, Tauros & Orochi",
     ],
     answer: "Juggler, Tauros & Katze",
     submittedBy: "New Creator",
   },
   {
-    id: 125, 
+    id: 125,
     question: "What is Rean's starting Master Quartz in CS1?",
-    options: [
-      "Falco",
-      "Raven",
-      "Force",
-      "Iron",
-      "Brave",
-      "Aegis"
-    ],
+    options: ["Falco", "Raven", "Force", "Iron", "Brave", "Aegis"],
     answer: "Force",
     submittedBy: "New Creator",
   },
   {
-    id: 126, 
+    id: 126,
     question: "What is Gaius's starting Master Quartz in CS1?",
-    options: [
-      "Mistral",
-      "Raven",
-      "Wing",
-      "Falco",
-      "Iron",
-      "Brave"
-    ],
+    options: ["Mistral", "Raven", "Wing", "Falco", "Iron", "Brave"],
     answer: "Falco",
     submittedBy: "New Creator",
   },
   {
-    id: 127, 
+    id: 127,
     question: "What is Elliot's starting Master Quartz in CS1?",
-    options: [
-      "Aries",
-      "Mirage",
-      "Angel",
-      "Canon",
-      "Scepter",
-      "Moebius"
-    ],
+    options: ["Aries", "Mirage", "Angel", "Canon", "Scepter", "Moebius"],
     answer: "Canon",
     submittedBy: "New Creator",
   },
   {
-    id: 128, 
+    id: 128,
     question: "What is Laura's starting Master Quartz in CS1?",
-    options: [
-      "Force",
-      "Tauros",
-      "Chevalier",
-      "Brave",
-      "Murakumo",
-      "Aegis"
-    ],
+    options: ["Force", "Tauros", "Chevalier", "Brave", "Murakumo", "Aegis"],
     answer: "Brave",
     submittedBy: "New Creator",
   },
   {
-    id: 129, 
+    id: 129,
     question: "What is Machias's starting Master Quartz in CS1?",
-    options: [
-      "Aegis",
-      "Iron",
-      "Megalith",
-      "Tauros",
-      "Keeper",
-      "Genesis"
-    ],
+    options: ["Aegis", "Iron", "Megalith", "Tauros", "Keeper", "Genesis"],
     answer: "Iron",
     submittedBy: "New Creator",
   },
   {
-    id: 130, 
+    id: 130,
     question: "What is Emma's starting Master Quartz in CS1?",
-    options: [
-      "Pandora",
-      "Criminal",
-      "Mirage",
-      "Aries",
-      "Canon",
-      "Magius"
-    ],
+    options: ["Pandora", "Criminal", "Mirage", "Aries", "Canon", "Magius"],
     answer: "Mirage",
     submittedBy: "New Creator",
   },
   {
-    id: 131, 
+    id: 131,
     question: "What is Jusis's starting Master Quartz in CS1?",
-    options: [
-      "Wing",
-      "Ariel",
-      "Mistral",
-      "Moebius",
-      "Falco",
-      "Zephyr"
-    ],
+    options: ["Wing", "Ariel", "Mistral", "Moebius", "Falco", "Zephyr"],
     answer: "Mistral",
     submittedBy: "New Creator",
   },
   {
-    id: 132, 
+    id: 132,
     question: "What is Fie's starting Master Quartz in CS1?",
-    options: [
-      "Cypher",
-      "Juggler",
-      "Murakumo",
-      "Katze",
-      "Raven",
-      "Skuld"
-    ],
+    options: ["Cypher", "Juggler", "Murakumo", "Katze", "Raven", "Skuld"],
     answer: "Raven",
     submittedBy: "New Creator",
   },
   {
-    id: 133, 
+    id: 133,
     question: "What is Alisa's starting Master Quartz in CS1?",
-    options: [
-      "Canon",
-      "Scepter",
-      "Moebius",
-      "Angel",
-      "Aries",
-      "Emblem"
-    ],
+    options: ["Canon", "Scepter", "Moebius", "Angel", "Aries", "Emblem"],
     answer: "Angel",
     submittedBy: "New Creator",
   },
   {
-    id: 134, 
+    id: 134,
     question: "What is Millium's starting Master Quartz in CS1?",
-    options: [
-      "Iron",
-      "Megalith",
-      "Tauros",
-      "Aegis",
-      "Keeper",
-      "Genesis"
-    ],
+    options: ["Iron", "Megalith", "Tauros", "Aegis", "Keeper", "Genesis"],
     answer: "Aegis",
     submittedBy: "New Creator",
   },
   {
-    id: 135, 
+    id: 135,
     question: "What is Crow's starting Master Quartz in CS1?",
-    options: [
-      "Katze",
-      "Murakumo",
-      "Cypher",
-      "Juggler",
-      "Raven",
-      "Criminal"
-    ],
+    options: ["Katze", "Murakumo", "Cypher", "Juggler", "Raven", "Criminal"],
     answer: "Cypher",
     submittedBy: "New Creator",
   },
   {
-    id: 136, 
+    id: 136,
     question: "What is Sara's starting Master Quartz in CS2?",
-    options: [
-      "Zephyr",
-      "Force",
-      "Thor",
-      "Chevalier",
-      "Murakumo",
-      "Brave"
-    ],
+    options: ["Zephyr", "Force", "Thor", "Chevalier", "Murakumo", "Brave"],
     answer: "Thor",
     submittedBy: "New Creator",
   },
   {
-    id: 137, 
+    id: 137,
     question: "What is Toval's starting Master Quartz in CS2?",
-    options: [
-      "Falco",
-      "Mistral",
-      "Wing",
-      "Criminal",
-      "Pandora",
-      "Rebellion"
-    ],
+    options: ["Falco", "Mistral", "Wing", "Criminal", "Pandora", "Rebellion"],
     answer: "Wing",
     submittedBy: "New Creator",
   },
   {
-    id: 138, 
+    id: 138,
     question: "What is Claire's starting Master Quartz in CS2?",
-    options: [
-      "Aries",
-      "Moebius",
-      "Canon",
-      "Scepter",
-      "Angel",
-      "Emblem"
-    ],
+    options: ["Aries", "Moebius", "Canon", "Scepter", "Angel", "Emblem"],
     answer: "Moebius",
     submittedBy: "New Creator",
   },
   {
-    id: 139, 
+    id: 139,
     question: "What is Sharon's starting Master Quartz in CS2?",
-    options: [
-      "Raven",
-      "Cypher",
-      "Katze",
-      "Juggler",
-      "Murakumo",
-      "Calamity"
-    ],
+    options: ["Raven", "Cypher", "Katze", "Juggler", "Murakumo", "Calamity"],
     answer: "Juggler",
     submittedBy: "New Creator",
   },
   {
-    id: 140, 
+    id: 140,
     question: "What is Juna's starting Master Quartz in CS3?",
-    options: [
-      "Sirius",
-      "Keeper",
-      "Aegis",
-      "Skuld",
-      "Minotauros",
-      "Brigid"
-    ],
+    options: ["Sirius", "Keeper", "Aegis", "Skuld", "Minotauros", "Brigid"],
     answer: "Skuld",
     submittedBy: "New Creator",
   },
   {
-    id: 141, 
+    id: 141,
     question: "What is Kurt's starting Master Quartz in CS3?",
-    options: [
-      "Zephyr",
-      "Tempest",
-      "Thor",
-      "Sirius",
-      "Falco",
-      "Oberon"
-    ],
+    options: ["Zephyr", "Tempest", "Thor", "Sirius", "Falco", "Oberon"],
     answer: "Sirius",
     submittedBy: "New Creator",
   },
   {
-    id: 142, 
+    id: 142,
     question: "What is Altina's starting Master Quartz in CS3?",
-    options: [
-      "Katze",
-      "Titania",
-      "Deva",
-      "Pandora",
-      "Gloom",
-      "Zephyr"
-    ],
+    options: ["Katze", "Titania", "Deva", "Pandora", "Gloom", "Zephyr"],
     answer: "Deva",
     submittedBy: "New Creator",
   },
   {
-    id: 143, 
+    id: 143,
     question: "What is Musse's starting Master Quartz in CS3?",
-    options: [
-      "Canon",
-      "Magius",
-      "Virgo",
-      "Kaleido",
-      "Titania",
-      "Sophia"
-    ],
+    options: ["Canon", "Magius", "Virgo", "Kaleido", "Titania", "Sophia"],
     answer: "Virgo",
     submittedBy: "New Creator",
   },
   {
-    id: 144, 
+    id: 144,
     question: "What is Ash's starting Master Quartz in CS3?",
     options: [
       "Regulus",
@@ -7596,13 +7386,13 @@ export const TRIVIA = [
       "Beowulf",
       "Chevalier",
       "Scorpio",
-      "Brigid"
+      "Brigid",
     ],
     answer: "Scorpio",
     submittedBy: "New Creator",
   },
   {
-    id: 145, 
+    id: 145,
     question: "What are the titles of the leaders of the Four Great Houses?",
     options: [
       "Duke, Duke, Duke & Duke",
@@ -7610,22 +7400,15 @@ export const TRIVIA = [
       "Duke, Duke, Count & Count",
       "Archduke, Duke, Marquis & Marquis",
       "Duke, Duke, Marquis & Marquis",
-      "Marquis, Marquis, Count & Count"
+      "Marquis, Marquis, Count & Count",
     ],
     answer: "Duke, Duke, Marquis & Marquis",
     submittedBy: "New Creator",
   },
   {
-    id: 146, 
+    id: 146,
     question: "In which game does Osborne get meantioned for the first time?",
-    options: [
-      "Sky FC",
-      "Sky SC",
-      "Sky 3rd",
-      "Zero",
-      "Azure",
-      "CS1"
-    ],
+    options: ["Sky FC", "Sky SC", "Sky 3rd", "Zero", "Azure", "CS1"],
     answer: "Sky SC",
     submittedBy: "New Creator",
   },
