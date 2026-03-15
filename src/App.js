@@ -1062,7 +1062,6 @@ function LocationMode({ version, targetDateObj, targetDateStr, isArchive }) {
     targetDateStr
   );
   const guessedLocations = storedLocations || [];
-  const [failedImages, setFailedImages] = useState({});
   const [isCopied, setIsCopied] = useState(false);
 
   const [targetLocation] = useState(getDailyItem(LOCATIONS, targetDateObj));
@@ -1078,12 +1077,12 @@ function LocationMode({ version, targetDateObj, targetDateStr, isArchive }) {
   const [isNationRevealed, setIsNationRevealed] = useState(false);
   const guessesNeededForNation = Math.max(0, 3 - wrongGuessesCount);
 
+  // Determine which image to show based on wrong guesses
   const imageIndexToShow = Math.min(
     wrongGuessesCount,
     targetLocation.imageFilePaths.length - 1
   );
   const currentImageUrl = targetLocation.imageFilePaths[imageIndexToShow];
-  const isImageBroken = failedImages[currentImageUrl];
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -1171,24 +1170,12 @@ function LocationMode({ version, targetDateObj, targetDateStr, isArchive }) {
           boxShadow: "0 4px 6px rgba(0,0,0,0.5)",
         }}
       >
-        {!isImageBroken ? (
-          <img
-            src={currentImageUrl}
-            alt={`Location Clue ${imageIndexToShow + 1}`}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            onError={() =>
-              setFailedImages((prev) => ({ ...prev, [currentImageUrl]: true }))
-            }
-          />
-        ) : (
-          <div
-            style={{ padding: "20px", color: "#a0a5b5", textAlign: "center" }}
-          >
-            <strong>Image Placeholder:</strong>
-            <br />
-            {currentImageUrl}
-          </div>
-        )}
+        {/* Render the image directly since all files are present */}
+        <img
+          src={currentImageUrl}
+          alt={`Location Clue ${imageIndexToShow + 1}`}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
       </div>
 
       {hasWon && (
@@ -1216,7 +1203,8 @@ function LocationMode({ version, targetDateObj, targetDateStr, isArchive }) {
         </div>
       )}
 
-      {!hasWon && (
+      {/* Wrapping conditional hint block */}
+      {!hasWon && !isGameOver && (
         <div className="hints-container">
           <div className="hint-wrapper">
             <button
