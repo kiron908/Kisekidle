@@ -1,0 +1,950 @@
+/* styles.css */
+body {
+  margin: 0;
+  background-color: #12151e; /* Dark background from the OG */
+  color: #ffffff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* --- SIDEBAR STYLING --- */
+.sidebar {
+  width: 250px;
+  background-color: #1a1e2a;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.sidebar-title {
+  color: #ff6b6b; /* Placeholder for the logo */
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 0 0 5px rgba(255, 107, 107, 0.5);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-button {
+  background: transparent;
+  border: none;
+  color: #a0a5b5;
+  padding: 15px 20px;
+  text-align: left;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.2s;
+}
+
+.nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* The active blue pill shape from the original */
+.nav-button.active {
+  background-color: #4d88ff;
+  color: white;
+  border-radius: 0 20px 20px 0;
+  width: 90%;
+}
+
+/* --- MAIN CONTENT STYLING (Updated with Background) --- */
+.main-content {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* We use a dark gradient overlay so text stays readable, plus a background image! */
+  /* (You can replace the URL later with one of your actual Kisekidle background images) */
+  background-image: linear-gradient(
+      rgba(18, 21, 30, 0.85),
+      rgba(18, 21, 30, 0.95)
+    ),
+    url("https://static.wikia.nocookie.net/kiseki/images/6/60/20th_Aniversary_Artwork.jpeg/revision/latest/scale-to-width-down/1000?cb=20240531081343");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  overflow-y: auto;
+}
+/* --- QUOTE BOX --- */
+.quote-box {
+  background-color: #1a1e2a; /* Dark background matching the sidebar */
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 5px solid #4d88ff; /* Matching the active blue tab */
+  font-style: italic;
+  font-size: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #e0e6f8; /* Soft, readable white */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* --- SEARCH INPUT & BUTTON --- */
+.search-container {
+  max-width: 500px;
+  margin: 0 auto 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-input {
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 16px;
+  background-color: #1a1e2a; /* Dark input background */
+  border: 1px solid #2d3446;
+  color: white;
+  border-radius: 8px 8px 0 0; /* Rounded top, flat bottom */
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: #7a8298;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4d88ff; /* Bright blue button */
+  color: white;
+  border: none;
+  border-radius: 0 0 8px 8px; /* Flat top, rounded bottom */
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-button:hover {
+  background-color: #3b73e6;
+}
+
+/* --- SUGGESTIONS DROPDOWN --- */
+.suggestions-list {
+  position: absolute;
+  top: 50px; /* Positioned right below the input text */
+  left: 0;
+  right: 0;
+  background-color: #1a1e2a;
+  border: 1px solid #2d3446;
+  border-top: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 20;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.suggestions-list li {
+  padding: 12px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #2d3446;
+  color: #e0e6f8;
+}
+
+.suggestions-list li:hover {
+  background-color: #2d3446;
+}
+/* --- TRAIT GRID --- */
+.grid-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.grid-header {
+  display: flex;
+  gap: 10px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #e0e6f8;
+  margin-bottom: 5px;
+}
+
+.grid-header > div {
+  flex: 1;
+}
+
+.grid-row {
+  display: flex;
+  gap: 10px;
+  text-align: center;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  /* This shadow ensures text is readable on top of bright colors */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  /* A tiny pop-in animation when a new row appears! */
+  animation: popIn 0.3s ease-out;
+}
+
+.grid-cell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 5px;
+  border-radius: 4px;
+  min-height: 60px; /* Makes them look like substantial blocks */
+  background-color: #2d3446; /* Default dark blue for the Name box */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* --- GUESS COUNTER --- */
+.header-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.mode-title {
+  margin: 0 0 10px 0;
+  font-size: 32px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.guesses-remaining {
+  background-color: #1a1e2a;
+  border: 1px solid #2d3446;
+  color: #e0e6f8;
+  padding: 8px 20px;
+  border-radius: 20px; /* Gives it that pill shape */
+  font-size: 14px;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.game-over-box {
+  background-color: #1a1e2a;
+  border: 2px solid #ff4d4d;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  margin: 0 auto 30px;
+  max-width: 500px;
+}
+
+.victory-box {
+  background-color: #1a1e2a;
+  border: 2px solid #4caf50;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  margin: 0 auto 30px;
+  max-width: 500px;
+}
+/* --- GUESS LISTS (For Quotes, Music, Locations) --- */
+.guess-list {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.guess-item {
+  padding: 15px 20px;
+  margin: 10px 0;
+  background-color: #1a1e2a; /* Dark background matching the theme */
+  color: #e0e6f8; /* Crisp white text */
+  font-size: 16px;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.guess-item strong {
+  font-size: 18px;
+}
+
+.guess-item.correct {
+  border-left: 6px solid #4caf50; /* Green */
+}
+
+.guess-item.incorrect {
+  border-left: 6px solid #f44336; /* Red */
+}
+/* --- HINTS SECTION --- */
+.hints-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 0 auto 30px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.hint-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.hint-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #2d3446; /* Dark/dimmed for locked state */
+  color: #7a8298;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  transition: all 0.2s;
+  cursor: not-allowed;
+}
+
+/* When the player has enough wrong guesses */
+.hint-btn.unlocked {
+  background-color: #3b73e6;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hint-btn.unlocked:hover {
+  background-color: #4d88ff;
+}
+
+/* When the player clicks the unlocked button to reveal the answer */
+.hint-btn.revealed {
+  background-color: #4caf50; /* Green to show it's active info */
+  color: white;
+  cursor: default;
+}
+
+.hint-condition {
+  font-size: 12px;
+  color: #a0a5b5;
+  margin-top: 8px;
+}
+/* --- SHARE BUTTON --- */
+.share-button {
+  background-color: #4caf50; /* A nice success green */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.2s, transform 0.1s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.share-button:hover {
+  background-color: #45a049;
+}
+
+.share-button:active {
+  transform: scale(0.95);
+}
+/* --- TODAY'S RESULTS TAB --- */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 30px;
+}
+
+.result-card {
+  background-color: #1a1e2a;
+  border: 1px solid #2d3446;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.result-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.result-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #e0e6f8;
+  margin-bottom: 10px;
+}
+
+.result-status {
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 12px;
+  display: inline-block;
+  margin: 0 auto 15px;
+}
+
+/* Dynamische Farben für den Status */
+.status-won {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+}
+.status-lost {
+  background-color: rgba(244, 67, 54, 0.2);
+  color: #f44336;
+}
+.status-playing {
+  background-color: rgba(255, 152, 0, 0.2);
+  color: #ff9800;
+}
+.status-unplayed {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #a0a5b5;
+}
+
+.share-all-btn {
+  background-color: #3b73e6;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(59, 115, 230, 0.4);
+  transition: all 0.2s;
+  display: block;
+  margin: 0 auto;
+}
+
+.share-all-btn:hover {
+  background-color: #4d88ff;
+  transform: translateY(-2px);
+}
+/* --- PROFILE & COLLECTION --- */
+.profile-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  color: #4d88ff;
+  margin: 40px 0 20px;
+  font-size: 24px;
+}
+
+/* Collection Grid */
+.game-section {
+  margin-bottom: 30px;
+  background-color: #1a1e2a;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #2d3446;
+}
+
+.game-title {
+  color: #e0e6f8;
+  border-bottom: 2px solid #2d3446;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 15px;
+}
+
+.char-portrait-box {
+  background-color: #12151e;
+  border: 2px solid #2d3446;
+  border-radius: 4px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.char-portrait-box.unlocked {
+  border-color: #4caf50;
+}
+
+.char-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.char-name-label {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 10px;
+  text-align: center;
+  padding: 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.locked-question-mark {
+  font-size: 32px;
+  color: #4d88ff;
+  opacity: 0.5;
+}
+/* --- STATS PANELS --- */
+.stats-panel {
+  background-color: #1a1e2a;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #2d3446;
+}
+
+.stats-panel.overall {
+  border-color: #c4a052; /* Gold border for overall stats */
+}
+
+.stats-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #e0e6f8;
+  margin-bottom: 20px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 12px;
+}
+
+.stat-box {
+  background-color: #222738;
+  padding: 15px 10px;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #e0e6f8;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: #a0a5b5;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+/* --- SIDEBAR COUNTDOWN --- */
+.sidebar-countdown {
+  margin-top: auto; /* Pushes it to the bottom of the sidebar */
+  padding: 15px;
+  text-align: center;
+  font-size: 14px;
+  color: #a0a5b5;
+  border-top: 1px solid #2d3446;
+  background-color: #161a24;
+}
+
+.countdown-time {
+  font-size: 18px;
+  font-weight: bold;
+  color: #e0e6f8;
+  margin-top: 5px;
+  font-family: monospace; /* Monospace keeps the numbers from shifting */
+}
+/* --- VOLUME CONTROL --- */
+.volume-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  color: #a0a5b5;
+}
+
+.volume-slider {
+  width: 150px;
+  cursor: pointer;
+  accent-color: #4d88ff; /* Makes the slider blue */
+}
+
+/* --- SETTINGS MENU & MODAL --- */
+.settings-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #a0a5b5;
+  transition: transform 0.2s, color 0.2s;
+  z-index: 100;
+}
+
+.settings-btn:hover {
+  color: #e0e6f8;
+  transform: rotate(45deg); /* Cool spin effect */
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #1a1e2a;
+  border: 1px solid #2d3446;
+  border-radius: 8px;
+  padding: 30px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #a0a5b5;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: white;
+}
+
+.import-export-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  background-color: #2d3446;
+  color: #e0e6f8;
+  border: 1px solid #4d88ff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.import-export-btn:hover {
+  background-color: #3b73e6;
+}
+/* --- VERSION TOGGLE --- */
+.version-toggle-container {
+  display: flex;
+  background-color: #12151e;
+  border-radius: 8px;
+  margin: 0 15px 15px;
+  padding: 4px;
+  border: 1px solid #2d3446;
+}
+
+.version-btn {
+  flex: 1;
+  padding: 8px 0;
+  border: none;
+  background: transparent;
+  color: #7a8298;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.version-btn.active {
+  background-color: #3b73e6;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+/* --- ARCHIVE BANNER --- */
+.archive-banner {
+  background-color: rgba(255, 152, 0, 0.9);
+  color: #12151e;
+  padding: 12px 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 20px auto;
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.archive-return-btn {
+  background-color: #12151e;
+  color: #ff9800;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+
+.archive-return-btn:hover {
+  transform: scale(1.05);
+}
+/* --- CALENDAR ARCHIVE STYLES --- */
+.archive-container {
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.calendar-wrapper {
+  background-color: #1a1e2a;
+  border: 1px solid #2d3446;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.calendar-header h3 {
+  margin: 0;
+  color: #e0e6f8;
+  font-size: 1.2rem;
+}
+
+.calendar-nav-btn {
+  background: none;
+  border: none;
+  color: #ff6b6b;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.calendar-nav-btn:hover:not(:disabled) {
+  background-color: rgba(255, 107, 107, 0.1);
+}
+
+.calendar-nav-btn:disabled {
+  color: #2d3446;
+  cursor: not-allowed;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  text-align: center;
+}
+
+.calendar-day-label {
+  color: #a0a5b5;
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+/* Update the day button to flex layout so dots sit at the bottom */
+.calendar-day-btn {
+  position: relative;
+  background-color: #2d3446;
+  color: #e0e6f8;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 0 6px 0;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 55px; /* Keeps the cell size consistent */
+}
+
+.calendar-day-btn:hover:not(:disabled) {
+  background-color: #ff6b6b;
+  color: #12151e;
+  transform: scale(1.05);
+}
+
+.calendar-day-btn:disabled {
+  background-color: transparent;
+  color: #4a5568;
+  cursor: not-allowed;
+}
+
+.calendar-today {
+  border: 2px solid #ff6b6b;
+  background-color: transparent;
+  color: #ff6b6b;
+}
+
+.calendar-empty-slot {
+  visibility: hidden;
+}
+
+.calendar-day-text {
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+/* --- NEW: 2x3 Dots Layout --- */
+.calendar-dots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  margin-top: auto; /* Pushes the dots to the bottom of the cell */
+}
+
+.calendar-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #1a1e2a; /* Default to dark "empty slot" look */
+}
+
+.dot-win {
+  background-color: #4caf50; /* Kisekidle Green */
+  box-shadow: 0 0 4px rgba(76, 175, 80, 0.6);
+}
+
+.dot-loss {
+  background-color: #f44336; /* Red for ran out of guesses */
+  box-shadow: 0 0 4px rgba(244, 67, 54, 0.6);
+}
+
+.dot-partial {
+  background-color: #ffeb3b; /* Yellow for in-progress */
+  box-shadow: 0 0 4px rgba(255, 235, 59, 0.6);
+}
+
+.dot-unplayed {
+  background-color: #1a1e2a; /* Blends in as an empty slot */
+}
+/* --- MUSIC MODE BLINDFOLD --- */
+.music-player-box {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 200px;
+  margin: 0 auto 20px auto;
+  background-color: #1a1e2a;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid #2d3446;
+}
+
+/* This covers the video entirely */
+.player-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: #1a1e2a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* Allows clicks to pass through if needed, though we use button controls */
+}
+
+.music-icon {
+  font-size: 4rem;
+  margin-bottom: 10px;
+}
+
+/* This hides the video from view while it plays */
+.youtube-wrapper {
+  position: absolute;
+  top: -50px; /* Offset to hide the YouTube title bar */
+  left: 0;
+  width: 100%;
+  height: calc(100% + 100px);
+  z-index: 1;
+  opacity: 0; /* Keep it slightly visible for debugging, or 0 to be totally invisible */
+  pointer-events: none;
+}
