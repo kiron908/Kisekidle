@@ -1964,13 +1964,13 @@ function SilhouetteMode({ version, targetDateObj, targetDateStr, isArchive }) {
   const [isCopied, setIsCopied] = useState(false);
 
   // UPDATED: Now uses the SILHOUETTES array from data.js!
-  const [targetCraft] = useState(getDailyItem(SILHOUETTES, targetDateObj));
+  const [targetSilhouette] = useState(getDailyItem(SILHOUETTES, targetDateObj));
 
   const MAX_GUESSES = 5;
   const wrongGuessesCount = guessedCharacters.filter(
-    (guess) => guess !== targetCraft.character
+    (guess) => guess !== targetSilhouette.character
   ).length;
-  const hasWon = guessedCharacters.includes(targetCraft.character);
+  const hasWon = guessedCharacters.includes(targetSilhouette.character);
   const guessesLeft = MAX_GUESSES - guessedCharacters.length;
   const isGameOver = guessesLeft <= 0 && !hasWon;
 
@@ -1978,8 +1978,8 @@ function SilhouetteMode({ version, targetDateObj, targetDateStr, isArchive }) {
   const guessesNeededForGame = Math.max(0, 3 - wrongGuessesCount);
 
   // Dynamic Image Paths
-  const silhouetteUrl = `/images/silhouettes/${targetCraft.id}.webp`;
-  const answerUrl = `/images/silhouettes/${targetCraft.id}-answer.webp`;
+  const silhouetteUrl = `/images/silhouettes/${targetSilhouette.id}.webp`;
+  const answerUrl = `/images/silhouettes/${targetSilhouette.id}-answer.webp`;
   const showAnswerImage = hasWon || isGameOver;
 
   const handleInputChange = (e) => {
@@ -2002,7 +2002,7 @@ function SilhouetteMode({ version, targetDateObj, targetDateStr, isArchive }) {
     if (guessedCharacters.includes(selectedCharacter.name)) return;
 
     const newGuesses = [...guessedCharacters, selectedCharacter.name];
-    const isWin = selectedCharacter.name === targetCraft.character;
+    const isWin = selectedCharacter.name === targetSilhouette.character;
     const isLoss = newGuesses.length >= MAX_GUESSES && !isWin;
 
     if (!isArchive && (isWin || isLoss)) {
@@ -2020,7 +2020,7 @@ function SilhouetteMode({ version, targetDateObj, targetDateStr, isArchive }) {
     const score = hasWon ? guessedCharacters.length : "X";
     let shareText = `Kisekidle - Silhouette\nGuesses: ${score}/${MAX_GUESSES}\n\n`;
     const emojis = guessedCharacters
-      .map((guess) => (guess === targetCraft.character ? "🟩" : "🟥"))
+      .map((guess) => (guess === targetSilhouette.character ? "🟩" : "🟥"))
       .join("");
     shareText += emojis;
     navigator.clipboard.writeText(shareText).then(() => {
@@ -2074,7 +2074,7 @@ function SilhouetteMode({ version, targetDateObj, targetDateStr, isArchive }) {
         <div className="victory-box">
           <h3>🎉 You got it! 🎉</h3>
           <p>
-            It was <strong>{targetCraft.character}</strong>.
+            It was <strong>{targetSilhouette.character}</strong>.
           </p>
           <button className="share-button" onClick={handleShare}>
             {isCopied ? "📋 Copied to Clipboard!" : "📤 Share Results"}
@@ -2086,7 +2086,7 @@ function SilhouetteMode({ version, targetDateObj, targetDateStr, isArchive }) {
         <div className="game-over-box">
           <h3>❌ Out of guesses! ❌</h3>
           <p>
-            The character was <strong>{targetCraft.character}</strong>.
+            The character was <strong>{targetSilhouette.character}</strong>.
           </p>
           <button className="share-button" onClick={handleShare}>
             {isCopied ? "📋 Copied to Clipboard!" : "📤 Share Results"}
@@ -2110,7 +2110,9 @@ function SilhouetteMode({ version, targetDateObj, targetDateStr, isArchive }) {
               }
               disabled={guessesNeededForGame > 0 || isGameRevealed}
             >
-              {isGameRevealed ? targetCraft.debutGame : "Reveal Debut Game"}
+              {isGameRevealed
+                ? targetSilhouette.debutGame
+                : "Reveal Debut Game"}
             </button>
             <div className="hint-condition">
               {guessesNeededForGame > 0
@@ -2149,7 +2151,7 @@ function SilhouetteMode({ version, targetDateObj, targetDateStr, isArchive }) {
           .slice()
           .reverse()
           .map((guess, index) => {
-            const isCorrect = guess === targetCraft.character;
+            const isCorrect = guess === targetSilhouette.character;
             return (
               <li
                 key={index}

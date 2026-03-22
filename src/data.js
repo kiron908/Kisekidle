@@ -12178,4 +12178,104 @@ export const SILHOUETTES = [
     character: "Estelle Bright",
     debutGame: "Trails in the Sky FC",
   },
+  {
+    id: "3",
+    character: "Renne Bright",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "4",
+    character: "Joshua Bright",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "5",
+    character: "Loewe",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "6",
+    character: "Van_Arkride",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "7",
+    character: "Shizuna_Rem_Misurugi",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "8",
+    character: "Agnès_Claudel",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "9",
+    character: "Agate_Crosner",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "10",
+    character: "Aina_Holden",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "11",
+    character: "Alan_Richard",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "12",
+    character: "Albert Russell",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "13",
+    character: "Alicia_von_Auslese",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "14",
+    character: "Anelace_Elfead",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "15",
+    character: "Carna",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "16",
+    character: "Dorothy_Hyatt",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "17",
+    character: "Kloe_Rinz",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "18",
+    character: "Nial_Burns",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "19",
+    character: "Olivier_Lenheim",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "20",
+    character: "Scherazard_Harvey",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "21",
+    character: "Tita_Russell",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "22",
+    character: "Zin_Vathek",
+    debutGame: "Trails in the Sky FC",
+  },
 ];
