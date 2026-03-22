@@ -12195,32 +12195,32 @@ export const SILHOUETTES = [
   },
   {
     id: "6",
-    character: "Van_Arkride",
+    character: "Van Arkride",
     debutGame: "Trails in the Sky FC",
   },
   {
     id: "7",
-    character: "Shizuna_Rem_Misurugi",
+    character: "Shizuna Rem Misurugi",
     debutGame: "Trails in the Sky FC",
   },
   {
     id: "8",
-    character: "Agnès_Claudel",
+    character: "Agnès Claudel",
     debutGame: "Trails in the Sky FC",
   },
   {
     id: "9",
-    character: "Agate_Crosner",
+    character: "Agate Crosner",
     debutGame: "Trails in the Sky FC",
   },
   {
     id: "10",
-    character: "Aina_Holden",
+    character: "Aina Holden",
     debutGame: "Trails in the Sky FC",
   },
   {
     id: "11",
-    character: "Alan_Richard",
+    character: "Alan Richard",
     debutGame: "Trails in the Sky FC",
   },
   {
@@ -12230,12 +12230,12 @@ export const SILHOUETTES = [
   },
   {
     id: "13",
-    character: "Alicia_von_Auslese",
+    character: "Alicia von Auslese",
     debutGame: "Trails in the Sky FC",
   },
   {
     id: "14",
-    character: "Anelace_Elfead",
+    character: "Anelace Elfead",
     debutGame: "Trails in the Sky FC",
   },
   {
@@ -12245,37 +12245,262 @@ export const SILHOUETTES = [
   },
   {
     id: "16",
-    character: "Dorothy_Hyatt",
+    character: "Dorothy Hyatt",
     debutGame: "Trails in the Sky FC",
   },
   {
     id: "17",
-    character: "Kloe_Rinz",
+    character: "Kloe Rinz",
     debutGame: "Trails in the Sky FC",
   },
   {
     id: "18",
-    character: "Nial_Burns",
+    character: "Nial Burns",
     debutGame: "Trails in the Sky FC",
   },
   {
     id: "19",
-    character: "Olivier_Lenheim",
+    character: "Olivier Lenheim",
     debutGame: "Trails in the Sky FC",
   },
   {
     id: "20",
-    character: "Scherazard_Harvey",
+    character: "Scherazard Harvey",
     debutGame: "Trails in the Sky FC",
   },
   {
     id: "21",
-    character: "Tita_Russell",
+    character: "Tita Russell",
     debutGame: "Trails in the Sky FC",
   },
   {
     id: "22",
-    character: "Zin_Vathek",
+    character: "Zin Vathek",
     debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "23",
+    character: "Bleublanc",
+    debutGame: "Trails in the Sky SC",
+  },
+  {
+    id: "24",
+    character: "Campanella",
+    debutGame: "Trails in the Sky SC",
+  },
+  {
+    id: "25",
+    character: "Cassius Bright",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "26",
+    character: "Georg Weissmann",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "27",
+    character: "Josette Capua",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "28",
+    character: "Julia Schwarz",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "29",
+    character: "Kevin Graham",
+    debutGame: "Trails in the Sky SC",
+  },
+  {
+    id: "30",
+    character: "Kurt Nardin",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "31",
+    character: "Luciola",
+    debutGame: "Trails in the Sky SC",
+  },
+  {
+    id: "32",
+    character: "Walter Kron",
+    debutGame: "Trails in the Sky SC",
+  },
+  {
+    id: "33",
+    character: "Celeste von Auslese",
+    debutGame: "Trails in the Sky 3rd",
+  },
+  {
+    id: "34",
+    character: "Dan Russell",
+    debutGame: "Trails in the Sky 3rd",
+  },
+  {
+    id: "35",
+    character: "Don Capua",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "36",
+    character: "Dunan von Auslese",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "37",
+    character: "Ein Selnate",
+    debutGame: "Trails in the Sky 3rd",
+  },
+  {
+    id: "38",
+    character: "Erika Russell",
+    debutGame: "Trails in the Sky 3rd",
+  },
+  {
+    id: "39",
+    character: "Halle Coleman",
+    debutGame: "Trails in the Sky 3rd",
+  },
+  {
+    id: "40",
+    character: "Jack Trevor",
+    debutGame: "Trails in the Sky 3rd",
+  },
+  {
+    id: "41",
+    character: "Jill Ridonor",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "42",
+    character: "Kanone Amalthea",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "43",
+    character: "Kilika Rouran",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "44",
+    character: "Kyle Capua",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "45",
+    character: "Lechter Arundel",
+    debutGame: "Trails in the Sky 3rd",
+  },
+  {
+    id: "46",
+    character: "Lucy Seiland",
+    debutGame: "Trails in the Sky 3rd",
+  },
+  {
+    id: "47",
+    character: "Maybelle",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "48",
+    character: "Klaus",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "49",
+    character: "Mueller Vander",
+    debutGame: "Trails in the Sky SC",
+  },
+  {
+    id: "50",
+    character: "Phillip Renard",
+    debutGame: "Trails in the Sky FC",
+  },
+  {
+    id: "51",
+    character: "Ries Argent",
+    debutGame: "Trails in the Sky 3rd",
+  },
+  {
+    id: "52",
+    character: "Rufina Argent",
+    debutGame: "Trails in the Sky 3rd",
+  },
+  {
+    id: "53",
+    character: "Giliath Osborne",
+    debutGame: "Trails in the Sky 3rd",
+  },
+  {
+    id: "54",
+    character: "Alex Dudley",
+    debutGame: "Trails from Zero",
+  },
+  {
+    id: "55",
+    character: "Arios Maclaine",
+    debutGame: "Trails from Zero",
+  },
+  {
+    id: "56",
+    character: "Cao Lee",
+    debutGame: "Trails from Zero",
+  },
+  {
+    id: "57",
+    character: "Cecile Neues",
+    debutGame: "Trails from Zero",
+  },
+  {
+    id: "58",
+    character: "Colin Hayworth",
+    debutGame: "Trails from Zero",
+  },
+  {
+    id: "59",
+    character: "Dieter Crois",
+    debutGame: "Trails from Zero",
+  },
+  {
+    id: "60",
+    character: "Elie MacDowell",
+    debutGame: "Trails from Zero",
+  },
+  {
+    id: "61",
+    character: "Ernest Reis",
+    debutGame: "Trails from Zero",
+  },
+  {
+    id: "62",
+    character: "Fran Seeker",
+    debutGame: "Trails from Zero",
+  },
+  {
+    id: "63",
+    character: "Garcia Rossi",
+    debutGame: "Trails from Zero",
+  },
+  {
+    id: "64",
+    character: "Grace Lynn",
+    debutGame: "Trails from Zero",
+  },
+  {
+    id: "65",
+    character: "Harold Hayworth",
+    debutGame: "Trails from Zero",
+  },
+  {
+    id: "66",
+    character: "Hartmann",
+    debutGame: "Trails from Zero",
+  },
+  {
+    id: "67",
+    character: "Henry MacDowell",
+    debutGame: "Trails from Zero",
   },
 ];
