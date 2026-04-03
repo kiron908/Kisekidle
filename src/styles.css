@@ -735,8 +735,8 @@ body {
 }
 /* --- ARCHIVE BANNER --- */
 .archive-banner {
-  background-color: rgba(255, 152, 0, 0.9);
-  color: #12151e;
+  background-color: #3b73e6;
+  color: #ffffff;
   padding: 12px 20px;
   border-radius: 8px;
   width: 100%;
@@ -752,7 +752,7 @@ body {
 
 .archive-return-btn {
   background-color: #12151e;
-  color: #ff9800;
+  color: #ffffff;
   border: none;
   padding: 8px 16px;
   border-radius: 6px;
