@@ -13,6 +13,7 @@ import {
 
 import { doc, setDoc, getDoc, increment } from "firebase/firestore";
 import { db } from "./firebase";
+import GlobalStatsModal from "./GlobalStatsModal";
 
 const GAME_ORDER = [
   "FC",
@@ -37,6 +38,8 @@ const getDateString = (dateObj) => {
 };
 
 const getTodayString = () => getDateString(new Date());
+
+const [isModalOpen, setIsModalOpen] = useState(false);
 
 const getDailyItem = (dataArray, targetDateObj = new Date()) => {
   if (!dataArray || dataArray.length === 0) return {}; // Safeguard
@@ -315,15 +318,23 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
 
           // 2. Safely add +1 to today's stats.
           // (merge: true ensures it creates the document if it's the first play of the day!)
+          // Grab the name of their most recent guess to log it!
+          const lastGuessName =
+            guesses.length > 0
+              ? guesses[guessedCharacters.length - 1].name
+              : "Unknown";
+
           await setDoc(
             statsRef,
             {
               totalPlays: increment(1),
               totalWins: hasWon ? increment(1) : increment(0),
-              // If they won, add +1 to their specific guess count bucket (e.g., "bucket_3")
-              ...(hasWon && {
-                [`bucket_${guessedCharacters.length}`]: increment(1),
-              }),
+              // Track total winning attempts to calculate the average later!
+              totalWinningAttempts: hasWon
+                ? increment(guessedCharacters.length)
+                : increment(0),
+              // Keep a tally of every specific character guessed
+              [`guessTally.${lastGuessName}`]: increment(1),
             },
             { merge: true }
           );
@@ -451,38 +462,21 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
             The character was <strong>{targetCharacter.name}</strong>.
           </p>
 
-          {globalStats && (
-            <div
-              className="global-stats-container"
-              style={{
-                margin: "20px 0",
-                padding: "15px",
-                backgroundColor: "#1a1e2a",
-                borderRadius: "8px",
-              }}
-            >
-              <h4 style={{ margin: "0 0 10px 0", color: "#a0a5b5" }}>
-                🌍 Global Community Stats
-              </h4>
-              <p style={{ margin: "5px 0" }}>
-                <strong>Total Players Today:</strong> {globalStats.totalPlays}
-              </p>
-              <p style={{ margin: "5px 0" }}>
-                <strong>Global Win Rate:</strong>{" "}
-                {Math.round(
-                  (globalStats.totalWins / globalStats.totalPlays) * 100
-                )}
-                %
-              </p>
-              <p style={{ margin: "5px 0", color: "#4a90e2" }}>
-                <strong>
-                  People who also won in {guessedCharacters.length}:
-                </strong>{" "}
-                {globalStats[`bucket_${guessedCharacters.length}`] || 1}
-              </p>
-            </div>
-          )}
-          {/* -------------------------------------- */}
+          <button
+            onClick={() => setIsModalOpen(true)}
+            style={{
+              padding: "10px",
+              margin: "15px 0",
+              backgroundColor: "#4a90e2",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              width: "100%",
+            }}
+          >
+            📊 View Global Stats
+          </button>
 
           <button className="share-button" onClick={handleShare}>
             {isCopied ? "📋 Copied to Clipboard!" : "📤 Share Results"}
@@ -641,6 +635,13 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
             </div>
           ))}
       </div>
+      {/* Renders the modal hovering over the screen when true */}
+      {isModalOpen && (
+        <GlobalStatsModal
+          targetDateStr={targetDateStr}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 }
