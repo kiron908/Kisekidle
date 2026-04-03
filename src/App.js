@@ -287,7 +287,18 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
   };
 
   const handleGuess = (selectedChar) => {
-    if (hasWon || isGameOver) return;
+    // Start it as true ONLY if they already won previously (so archived games load instantly)
+    const [showEndScreen, setShowEndScreen] = useState(hasWon || isGameOver);
+
+    // When a win or loss happens, start a 1.8 second timer before showing the screen
+    useEffect(() => {
+      if (hasWon || isGameOver) {
+        const timer = setTimeout(() => {
+          setShowEndScreen(true);
+        }, 1800); // 1.2s delay + 0.5s animation + 0.1s buffer
+        return () => clearTimeout(timer);
+      }
+    }, [hasWon, isGameOver]);
     if (guessedCharacters.find((c) => c.id === selectedChar.id)) return;
 
     const newGuesses = [...guessedCharacters, selectedChar];
@@ -376,7 +387,7 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
         </div>
       </div>
 
-      {hasWon && (
+      {hasWon && showEndScreen && (
         <div className="victory-box">
           <Confetti
             width={window.innerWidth}
@@ -395,7 +406,7 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
         </div>
       )}
 
-      {isGameOver && (
+      {isGameOver && showEndScreen && (
         <div className="game-over-box">
           <h3>❌ Out of guesses! ❌</h3>
           <p>
