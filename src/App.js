@@ -316,15 +316,17 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
   const getAgeArrow = (guessAge, targetAge) => {
     const gAge = parseInt(guessAge);
     const tAge = parseInt(targetAge);
-    if (isNaN(gAge) || isNaN(tAge) || gAge === tAge) return "";
-    return gAge < tAge ? " ↑" : " ↓";
+    if (isNaN(gAge) || isNaN(tAge) || gAge === tAge) return null;
+    const arrow = gAge < tAge ? "↑" : "↓";
+    return <span className="hint-arrow">{arrow}</span>;
   };
 
   const getGameArrow = (guessGame, targetGame) => {
     const gIndex = GAME_ORDER.indexOf(guessGame);
     const tIndex = GAME_ORDER.indexOf(targetGame);
-    if (gIndex === -1 || tIndex === -1 || gIndex === tIndex) return "";
-    return gIndex < tIndex ? " ↑" : " ↓";
+    if (gIndex === -1 || tIndex === -1 || gIndex === tIndex) return null;
+    const arrow = gIndex < tIndex ? "↑" : "↓";
+    return <span className="hint-arrow">{arrow}</span>;
   };
 
   const handleShare = () => {
@@ -438,66 +440,90 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
           .reverse()
           .map((char) => (
             <div key={char.id} className="grid-row">
-              <div className="grid-cell">{char.name}</div>
+              {/* Name - Flips immediately */}
               <div
-                className="grid-cell"
+                className="grid-cell reveal-cell"
+                style={{ animationDelay: "0s" }}
+              >
+                {char.name}
+              </div>
+
+              {/* Gender - 0.5s delay */}
+              <div
+                className="grid-cell reveal-cell"
                 style={{
                   backgroundColor: getMatchColor(
                     char.gender,
                     targetCharacter.gender
                   ),
+                  animationDelay: "1s",
                 }}
               >
                 {formatTrait(char.gender)}
               </div>
+
+              {/* Weapon - 0.6s delay */}
               <div
-                className="grid-cell"
+                className="grid-cell reveal-cell"
                 style={{
                   backgroundColor: getMatchColor(
                     char.weapon,
                     targetCharacter.weapon
                   ),
+                  animationDelay: "1.5s",
                 }}
               >
                 {formatTrait(char.weapon)}
               </div>
+
+              {/* Nation - 0.8s delay */}
               <div
-                className="grid-cell"
+                className="grid-cell reveal-cell"
                 style={{
                   backgroundColor: getMatchColor(
                     char.nationality,
                     targetCharacter.nationality
                   ),
+                  animationDelay: "2s",
                 }}
               >
                 {formatTrait(char.nationality)}
               </div>
+
+              {/* Affiliation - 1s delay */}
               <div
-                className="grid-cell"
+                className="grid-cell reveal-cell"
                 style={{
                   backgroundColor: getMatchColor(
                     char.affiliation,
                     targetCharacter.affiliation
                   ),
+                  animationDelay: "2.5s",
                 }}
               >
                 {formatTrait(char.affiliation)}
               </div>
+
+              {/* Age - 1.2s delay */}
               <div
-                className="grid-cell"
+                className="grid-cell reveal-cell"
                 style={{
                   backgroundColor: getMatchColor(char.age, targetCharacter.age),
+                  animationDelay: "3s",
                 }}
               >
                 {char.age} {getAgeArrow(char.age, targetCharacter.age)}
               </div>
+
+              {/* Debut - 1.4s delay */}
               <div
-                className="grid-cell"
+                className="grid-cell reveal-cell"
                 style={{
                   backgroundColor: getMatchColor(
                     char.debutGame,
                     targetCharacter.debutGame
                   ),
+                  animationDelay: "3.5s",
                 }}
               >
                 {char.debutGame}{" "}
