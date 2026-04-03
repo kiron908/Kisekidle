@@ -11,6 +11,9 @@ import {
   SILHOUETTES,
 } from "./data";
 
+import { doc, setDoc, getDoc, increment } from "firebase/firestore";
+import { db } from "./firebase";
+
 const GAME_ORDER = [
   "FC",
   "SC",
@@ -273,6 +276,8 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
   const guessesLeft = MAX_GUESSES - guessedCharacters.length;
   const isGameOver = guessesLeft <= 0 && !hasWon;
 
+  const [globalStats, setGlobalStats] = useState(null);
+
   const handleInputChange = (e) => {
     const value = e.target.value;
     setCurrentGuess(value);
@@ -298,6 +303,50 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
       return () => clearTimeout(timer);
     }
   }, [hasWon, isGameOver]);
+
+  // --- GLOBAL STATS TRACKING ---
+  useEffect(() => {
+    // Only run this when the end screen is ready to show, and only run it once!
+    if (showEndScreen && !globalStats) {
+      const updateAndFetchStats = async () => {
+        try {
+          // 1. Point to today's specific document in the database
+          const statsRef = doc(db, "character_stats", targetDateStr);
+
+          // 2. Safely add +1 to today's stats.
+          // (merge: true ensures it creates the document if it's the first play of the day!)
+          await setDoc(
+            statsRef,
+            {
+              totalPlays: increment(1),
+              totalWins: hasWon ? increment(1) : increment(0),
+              // If they won, add +1 to their specific guess count bucket (e.g., "bucket_3")
+              ...(hasWon && {
+                [`bucket_${guessedCharacters.length}`]: increment(1),
+              }),
+            },
+            { merge: true }
+          );
+
+          // 3. Immediately pull the updated numbers back down to show the player
+          const updatedDoc = await getDoc(statsRef);
+          if (updatedDoc.exists()) {
+            setGlobalStats(updatedDoc.data());
+          }
+        } catch (error) {
+          console.error("Error saving stats to Firebase:", error);
+        }
+      };
+
+      updateAndFetchStats();
+    }
+  }, [
+    showEndScreen,
+    hasWon,
+    guessedCharacters.length,
+    targetDateStr,
+    globalStats,
+  ]);
 
   const handleGuess = (selectedChar) => {
     if (guessedCharacters.find((c) => c.id === selectedChar.id)) return;
@@ -401,6 +450,40 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
           <p>
             The character was <strong>{targetCharacter.name}</strong>.
           </p>
+
+          {globalStats && (
+            <div
+              className="global-stats-container"
+              style={{
+                margin: "20px 0",
+                padding: "15px",
+                backgroundColor: "#1a1e2a",
+                borderRadius: "8px",
+              }}
+            >
+              <h4 style={{ margin: "0 0 10px 0", color: "#a0a5b5" }}>
+                🌍 Global Community Stats
+              </h4>
+              <p style={{ margin: "5px 0" }}>
+                <strong>Total Players Today:</strong> {globalStats.totalPlays}
+              </p>
+              <p style={{ margin: "5px 0" }}>
+                <strong>Global Win Rate:</strong>{" "}
+                {Math.round(
+                  (globalStats.totalWins / globalStats.totalPlays) * 100
+                )}
+                %
+              </p>
+              <p style={{ margin: "5px 0", color: "#4a90e2" }}>
+                <strong>
+                  People who also won in {guessedCharacters.length}:
+                </strong>{" "}
+                {globalStats[`bucket_${guessedCharacters.length}`] || 1}
+              </p>
+            </div>
+          )}
+          {/* -------------------------------------- */}
+
           <button className="share-button" onClick={handleShare}>
             {isCopied ? "📋 Copied to Clipboard!" : "📤 Share Results"}
           </button>
