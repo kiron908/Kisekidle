@@ -285,18 +285,21 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
       setSuggestions([]);
     }
   };
+
   // Start it as true ONLY if they already won previously (so archived games load instantly)
   const [showEndScreen, setShowEndScreen] = useState(hasWon || isGameOver);
+
+  // When a win or loss happens, start a 1.8 second timer before showing the screen
+  useEffect(() => {
+    if (hasWon || isGameOver) {
+      const timer = setTimeout(() => {
+        setShowEndScreen(true);
+      }, 1800); // 1.2s delay + 0.5s animation + 0.1s buffer
+      return () => clearTimeout(timer);
+    }
+  }, [hasWon, isGameOver]);
+
   const handleGuess = (selectedChar) => {
-    // When a win or loss happens, start a 1.8 second timer before showing the screen
-    useEffect(() => {
-      if (hasWon || isGameOver) {
-        const timer = setTimeout(() => {
-          setShowEndScreen(true);
-        }, 1800); // 1.2s delay + 0.5s animation + 0.1s buffer
-        return () => clearTimeout(timer);
-      }
-    }, [hasWon, isGameOver]);
     if (guessedCharacters.find((c) => c.id === selectedChar.id)) return;
 
     const newGuesses = [...guessedCharacters, selectedChar];
