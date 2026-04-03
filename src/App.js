@@ -1250,18 +1250,18 @@ function LocationMode({ version, targetDateObj, targetDateStr, isArchive }) {
         <p
           style={{
             color: "#a0a5b5",
-            margin: "0 0 20px 0",
+            margin: "0 0 15px 0",
             textAlign: "center",
           }}
         >
-          Image {currentImageIndex + 1} of{" "}
-          {targetLocation.imageFilePaths.length}
+          Image Clues ({maxRevealedIndex + 1} of{" "}
+          {targetLocation.imageFilePaths.length} Unlocked)
         </p>
       </div>
 
+      {/* --- IMAGE CONTAINER (Arrows removed) --- */}
       <div
         style={{
-          position: "relative" /* <-- Required for floating arrows */,
           width: "100%",
           height: "300px",
           backgroundColor: "#1a1e2a",
@@ -1269,67 +1269,52 @@ function LocationMode({ version, targetDateObj, targetDateStr, isArchive }) {
           alignItems: "center",
           justifyContent: "center",
           borderRadius: "8px",
-          marginBottom: "30px",
+          marginBottom: "15px" /* Reduced to keep buttons close to the image */,
           overflow: "hidden",
           boxShadow: "0 4px 6px rgba(0,0,0,0.5)",
         }}
       >
-        {/* --- LEFT ARROW --- */}
-        {currentImageIndex > 0 && (
-          <button
-            onClick={() => setCurrentImageIndex((prev) => prev - 1)}
-            style={{
-              position: "absolute",
-              left: "10px",
-              backgroundColor: "rgba(0, 0, 0, 0.6)",
-              color: "white",
-              border: "none",
-              borderRadius: "50%",
-              width: "40px",
-              height: "40px",
-              cursor: "pointer",
-              fontSize: "1.2rem",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              zIndex: 2,
-            }}
-          >
-            ◀
-          </button>
-        )}
-
-        {/* Render the image */}
         <img
           src={currentImageUrl}
           alt={`Location Clue ${currentImageIndex + 1}`}
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
+      </div>
 
-        {/* --- RIGHT ARROW --- */}
-        {currentImageIndex < maxRevealedIndex && (
+      {/* --- PAGINATION BUTTONS --- */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "10px",
+          marginBottom: "30px",
+        }}
+      >
+        {/* This creates an array of buttons exactly matching the number of unlocked images */}
+        {Array.from({ length: maxRevealedIndex + 1 }).map((_, index) => (
           <button
-            onClick={() => setCurrentImageIndex((prev) => prev + 1)}
+            key={index}
+            onClick={() => setCurrentImageIndex(index)}
             style={{
-              position: "absolute",
-              right: "10px",
-              backgroundColor: "rgba(0, 0, 0, 0.6)",
-              color: "white",
+              width: "36px",
+              height: "36px",
+              borderRadius: "6px",
               border: "none",
-              borderRadius: "50%",
-              width: "40px",
-              height: "40px",
+              backgroundColor:
+                currentImageIndex === index ? "#4a90e2" : "#2d3446", // Highlights the active image
+              color: "white",
+              fontWeight: "bold",
               cursor: "pointer",
-              fontSize: "1.2rem",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              zIndex: 2,
+              transition: "all 0.2s ease",
+              boxShadow:
+                currentImageIndex === index
+                  ? "0 0 8px rgba(74, 144, 226, 0.5)"
+                  : "none",
             }}
           >
-            ▶
+            {index + 1}
           </button>
-        )}
+        ))}
       </div>
 
       {hasWon && (
@@ -2242,7 +2227,7 @@ function SilhouetteMode({ version, targetDateObj, targetDateStr, isArchive }) {
 
       <div
         style={{
-          backgroundColor: "#1a1e2a",
+          backgroundColor: "#50545e",
           padding: "20px",
           borderRadius: "12px",
           border: "2px solid #2d3446",
