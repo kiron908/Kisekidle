@@ -4,12 +4,12 @@ import { getFirestore } from "firebase/firestore";
 
 // TODO: Replace this with your copied firebaseConfig object!
 const firebaseConfig = {
-  apiKey: "AIzaSyD9S2FiYfLmN1RxlXo661BgnE0QwZCXRI8",
-  authDomain: "kisekidle-5cf1c.firebaseapp.com",
-  projectId: "kisekidle-5cf1c",
-  storageBucket: "kisekidle-5cf1c.firebasestorage.app",
-  messagingSenderId: "555403280974",
-  appId: "1:555403280974:web:cb445fd9b9e82efcc8f91f",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
