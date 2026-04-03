@@ -1,6 +1,6 @@
 import "./styles.css";
 import { useState, useEffect, useRef } from "react";
-// Make sure to add SILHOUETTES to your data.js exports!
+import Confetti from "react-confetti";
 import {
   CHARACTERS,
   QUOTES,
@@ -378,6 +378,13 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
 
       {hasWon && (
         <div className="victory-box">
+          <Confetti
+            width={window.innerWidth}
+            height={window.innerHeight}
+            recycle={false}
+            numberOfPieces={400}
+            gravity={0.15}
+          />
           <h3>🎉 You got it! 🎉</h3>
           <p>
             The character was <strong>{targetCharacter.name}</strong>.
@@ -634,6 +641,13 @@ function QuoteMode({ version, targetDateObj, targetDateStr, isArchive }) {
 
       {hasWon && (
         <div className="victory-box">
+          <Confetti
+            width={window.innerWidth}
+            height={window.innerHeight}
+            recycle={false}
+            numberOfPieces={400}
+            gravity={0.15}
+          />
           <h3>🎉 You got it! 🎉</h3>
           <p>
             The character was <strong>{targetQuote.character}</strong>.
@@ -958,6 +972,13 @@ function MusicMode({ version, targetDateObj, targetDateStr, isArchive }) {
 
       {hasWon && (
         <div className="victory-box">
+          <Confetti
+            width={window.innerWidth}
+            height={window.innerHeight}
+            recycle={false}
+            numberOfPieces={400}
+            gravity={0.15}
+          />
           <h3>🎉 You got it! 🎉</h3>
           <p>
             The track was <strong>{targetTrack.title}</strong>.
@@ -1212,6 +1233,13 @@ function LocationMode({ version, targetDateObj, targetDateStr, isArchive }) {
 
       {hasWon && (
         <div className="victory-box">
+          <Confetti
+            width={window.innerWidth}
+            height={window.innerHeight}
+            recycle={false}
+            numberOfPieces={400}
+            gravity={0.15}
+          />
           <h3>🎉 You got it! 🎉</h3>
           <p>
             The location was <strong>{targetLocation.locationName}</strong>.
@@ -1732,6 +1760,13 @@ function TriviaMode({ version, targetDateObj, targetDateStr, isArchive }) {
 
       {hasWon && (
         <div className="victory-box">
+          <Confetti
+            width={window.innerWidth}
+            height={window.innerHeight}
+            recycle={false}
+            numberOfPieces={400}
+            gravity={0.15}
+          />
           <h3>🎉 Correct! 🎉</h3>
           <p>Great job knowing your lore!</p>
           <button className="share-button" onClick={handleShare}>
@@ -1905,6 +1940,13 @@ function CraftsMode({ version, targetDateObj, targetDateStr, isArchive }) {
 
       {hasWon && (
         <div className="victory-box">
+          <Confetti
+            width={window.innerWidth}
+            height={window.innerHeight}
+            recycle={false}
+            numberOfPieces={400}
+            gravity={0.15}
+          />
           <h3>🎉 You got it! 🎉</h3>
           <p>
             The craft was <strong>{targetCraft.craftName}</strong> used by{" "}
@@ -2104,6 +2146,13 @@ function SilhouetteMode({ version, targetDateObj, targetDateStr, isArchive }) {
 
       {hasWon && (
         <div className="victory-box">
+          <Confetti
+            width={window.innerWidth}
+            height={window.innerHeight}
+            recycle={false}
+            numberOfPieces={400}
+            gravity={0.15}
+          />
           <h3>🎉 You got it! 🎉</h3>
           <p>
             It was <strong>{targetSilhouette.character}</strong>.
