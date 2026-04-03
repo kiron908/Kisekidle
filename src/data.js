@@ -12181,7 +12181,7 @@ export const SILHOUETTES = [
   {
     id: "3",
     character: "Renne Bright",
-    debutGame: "Trails in the Sky FC",
+    debutGame: "Trails in the Sky SC",
   },
   {
     id: "4",
@@ -12196,17 +12196,17 @@ export const SILHOUETTES = [
   {
     id: "6",
     character: "Van Arkride",
-    debutGame: "Trails in the Sky FC",
+    debutGame: "Trails through Daybreak",
   },
   {
     id: "7",
     character: "Shizuna Rem Misurugi",
-    debutGame: "Trails in the Sky FC",
+    debutGame: "Trails through Daybreak",
   },
   {
     id: "8",
     character: "Agnès Claudel",
-    debutGame: "Trails in the Sky FC",
+    debutGame: "Trails through Daybreak",
   },
   {
     id: "9",

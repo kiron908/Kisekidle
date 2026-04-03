@@ -44,16 +44,22 @@ const getDailyItem = (dataArray, targetDateObj = new Date()) => {
     targetDateObj.getUTCMonth(),
     targetDateObj.getUTCDate()
   );
-  const epochUTC = Date.UTC(
-    epochDate.getUTCFullYear(),
-    epochDate.getUTCMonth(),
-    epochDate.getUTCDate()
+
+  const diffDays = Math.floor(
+    (targetUTC - epochDate.getTime()) / (1000 * 60 * 60 * 24)
   );
 
-  const diffInDays = Math.floor((targetUTC - epochUTC) / (1000 * 60 * 60 * 24));
-  const index = Math.abs(diffInDays) % dataArray.length;
+  // --- NEW RANDOMIZATION LOGIC ---
+  // We use the diffDays as a "seed" for a pseudo-random number generator.
+  // We add an arbitrary number (like 12345) just to shift the starting point.
+  const seed = diffDays + 12345;
 
-  return dataArray[index];
+  // Math.sin(seed) generates a crazy decimal. We multiply it by a large number,
+  // take the absolute value, and then use modulo to fit it to your array length!
+  const pseudoRandomNumber = Math.abs(Math.sin(seed) * 10000);
+  const randomIndex = Math.floor(pseudoRandomNumber) % dataArray.length;
+
+  return dataArray[randomIndex];
 };
 
 // --- Local Storage Hook ---
