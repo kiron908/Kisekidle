@@ -285,11 +285,9 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
       setSuggestions([]);
     }
   };
-
+  // Start it as true ONLY if they already won previously (so archived games load instantly)
+  const [showEndScreen, setShowEndScreen] = useState(hasWon || isGameOver);
   const handleGuess = (selectedChar) => {
-    // Start it as true ONLY if they already won previously (so archived games load instantly)
-    const [showEndScreen, setShowEndScreen] = useState(hasWon || isGameOver);
-
     // When a win or loss happens, start a 1.8 second timer before showing the screen
     useEffect(() => {
       if (hasWon || isGameOver) {
