@@ -963,7 +963,7 @@ body {
 
 .reveal-cell {
   opacity: 0;
-  animation: flipIn 1s ease-out forwards;
+  animation: flipIn 0.5s ease-out forwards;
 }
 
 /* --- Arrow Styling for Character Mode --- */

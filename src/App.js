@@ -294,7 +294,7 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
     if (hasWon || isGameOver) {
       const timer = setTimeout(() => {
         setShowEndScreen(true);
-      }, 1800); // 1.2s delay + 0.5s animation + 0.1s buffer
+      }, 3800);
       return () => clearTimeout(timer);
     }
   }, [hasWon, isGameOver]);
@@ -418,18 +418,19 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
           </button>
         </div>
       )}
-
-      {!hasWon && !isGameOver && (
+      {!showEndScreen && (
         <div className="search-container">
           <input
             type="text"
             className="search-input"
             value={currentGuess}
             onChange={handleInputChange}
-            placeholder="Type a character name..."
+            placeholder="Search for a character..."
+            disabled={hasWon || isGameOver}
           />
           <button
             className="submit-button"
+            disabled={hasWon || isGameOver}
             onClick={() =>
               suggestions.length > 0 && handleGuess(suggestions[0])
             }
@@ -438,9 +439,9 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
           </button>
           {suggestions.length > 0 && (
             <ul className="suggestions-list">
-              {suggestions.map((item) => (
-                <li key={item.id} onClick={() => handleGuess(item)}>
-                  {item.name}
+              {suggestions.map((c) => (
+                <li key={c.id} onClick={() => handleGuess(c)}>
+                  {c.name}
                 </li>
               ))}
             </ul>
