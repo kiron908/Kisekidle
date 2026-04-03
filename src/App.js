@@ -646,7 +646,13 @@ function CharacterMode({
 // ==========================================
 // 3. QUOTE MODE COMPONENT
 // ==========================================
-function QuoteMode({ version, targetDateObj, targetDateStr, isArchive }) {
+function QuoteMode({
+  version,
+  targetDateObj,
+  targetDateStr,
+  isArchive,
+  setIsModalOpen,
+}) {
   const [currentGuess, setCurrentGuess] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [storedGuesses, setGuessedCharacters] = useDailyLocalStorage(
@@ -886,7 +892,13 @@ function QuoteMode({ version, targetDateObj, targetDateStr, isArchive }) {
 // ==========================================
 // 4. MUSIC MODE COMPONENT (HEARDLE TIMER VERSION)
 // ==========================================
-function MusicMode({ version, targetDateObj, targetDateStr, isArchive }) {
+function MusicMode({
+  version,
+  targetDateObj,
+  targetDateStr,
+  isArchive,
+  setIsModalOpen,
+}) {
   const [currentGuess, setCurrentGuess] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [storedTracks, setGuessedTracks] = useDailyLocalStorage(
@@ -1228,7 +1240,13 @@ function MusicMode({ version, targetDateObj, targetDateStr, isArchive }) {
 // ==========================================
 // 5. LOCATION MODE COMPONENT
 // ==========================================
-function LocationMode({ version, targetDateObj, targetDateStr, isArchive }) {
+function LocationMode({
+  version,
+  targetDateObj,
+  targetDateStr,
+  isArchive,
+  setIsModalOpen,
+}) {
   const [currentGuess, setCurrentGuess] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [storedLocations, setGuessedLocations] = useDailyLocalStorage(
@@ -1802,7 +1820,13 @@ function ResultsMode({ version, targetDateObj, targetDateStr, isArchive }) {
 // ==========================================
 // 7. TRIVIA MODE COMPONENT (MULTIPLE CHOICE)
 // ==========================================
-function TriviaMode({ version, targetDateObj, targetDateStr, isArchive }) {
+function TriviaMode({
+  version,
+  targetDateObj,
+  targetDateStr,
+  isArchive,
+  setIsModalOpen,
+}) {
   const [storedGuesses, setStoredGuesses] = useDailyLocalStorage(
     "kisekidle-trivia",
     targetDateStr
@@ -1965,7 +1989,13 @@ function TriviaMode({ version, targetDateObj, targetDateStr, isArchive }) {
 // ==========================================
 // 8. CRAFTS MODE COMPONENT
 // ==========================================
-function CraftsMode({ version, targetDateObj, targetDateStr, isArchive }) {
+function CraftsMode({
+  version,
+  targetDateObj,
+  targetDateStr,
+  isArchive,
+  setIsModalOpen,
+}) {
   const [currentGuess, setCurrentGuess] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [storedGuesses, setGuessedCrafts] = useDailyLocalStorage(
@@ -2215,7 +2245,13 @@ function CraftsMode({ version, targetDateObj, targetDateStr, isArchive }) {
 // ==========================================
 // 9. SILHOUETTE MODE COMPONENT
 // ==========================================
-function SilhouetteMode({ version, targetDateObj, targetDateStr, isArchive }) {
+function SilhouetteMode({
+  version,
+  targetDateObj,
+  targetDateStr,
+  isArchive,
+  setIsModalOpen,
+}) {
   const [currentGuess, setCurrentGuess] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [storedGuesses, setStoredGuesses] = useDailyLocalStorage(
@@ -3400,6 +3436,7 @@ export default function App() {
             targetDateObj={activeDateObj}
             targetDateStr={activeDateStr}
             isArchive={isArchive}
+            setIsModalOpen={setIsModalOpen}
           />
         )}
         {activeTab === "quotes" && (
@@ -3419,6 +3456,7 @@ export default function App() {
             targetDateObj={activeDateObj}
             targetDateStr={activeDateStr}
             isArchive={isArchive}
+            setIsModalOpen={setIsModalOpen}
           />
         )}
         {activeTab === "locations" && (
@@ -3428,6 +3466,7 @@ export default function App() {
             targetDateObj={activeDateObj}
             targetDateStr={activeDateStr}
             isArchive={isArchive}
+            setIsModalOpen={setIsModalOpen}
           />
         )}
 
@@ -3439,6 +3478,7 @@ export default function App() {
             targetDateObj={activeDateObj}
             targetDateStr={activeDateStr}
             isArchive={isArchive}
+            setIsModalOpen={setIsModalOpen}
           />
         )}
         {activeTab === "crafts" && (
@@ -3448,6 +3488,7 @@ export default function App() {
             targetDateObj={activeDateObj}
             targetDateStr={activeDateStr}
             isArchive={isArchive}
+            setIsModalOpen={setIsModalOpen}
           />
         )}
         {/* NEW: Silhouette Router Switch */}
@@ -3458,6 +3499,7 @@ export default function App() {
             targetDateObj={activeDateObj}
             targetDateStr={activeDateStr}
             isArchive={isArchive}
+            setIsModalOpen={setIsModalOpen}
           />
         )}
 
