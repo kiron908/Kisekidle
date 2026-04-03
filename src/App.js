@@ -39,8 +39,6 @@ const getDateString = (dateObj) => {
 
 const getTodayString = () => getDateString(new Date());
 
-const [isModalOpen, setIsModalOpen] = useState(false);
-
 const getDailyItem = (dataArray, targetDateObj = new Date()) => {
   if (!dataArray || dataArray.length === 0) return {}; // Safeguard
   const epochDate = new Date("2024-01-01T00:00:00Z");
@@ -257,7 +255,13 @@ function CountdownTimer() {
 // ==========================================
 // 2. CHARACTER MODE COMPONENT
 // ==========================================
-function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
+function CharacterMode({
+  version,
+  targetDateObj,
+  targetDateStr,
+  isArchive,
+  setIsModalOpen,
+}) {
   const [currentGuess, setCurrentGuess] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [storedGuesses, setGuessedCharacters] = useDailyLocalStorage(
@@ -635,13 +639,6 @@ function CharacterMode({ version, targetDateObj, targetDateStr, isArchive }) {
             </div>
           ))}
       </div>
-      {/* Renders the modal hovering over the screen when true */}
-      {isModalOpen && (
-        <GlobalStatsModal
-          targetDateStr={targetDateStr}
-          onClose={() => setIsModalOpen(false)}
-        />
-      )}
     </div>
   );
 }
@@ -3184,7 +3181,7 @@ export default function App() {
     false
   );
   const [showNewVersionModal, setShowNewVersionModal] = useState(false);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [targetDateObj, setTargetDateObj] = useState(null);
   const activeDateObj = targetDateObj || new Date();
   const activeDateStr = getDateString(activeDateObj);
@@ -3412,6 +3409,7 @@ export default function App() {
             targetDateObj={activeDateObj}
             targetDateStr={activeDateStr}
             isArchive={isArchive}
+            setIsModalOpen={setIsModalOpen}
           />
         )}
         {activeTab === "music" && (
@@ -3482,6 +3480,12 @@ export default function App() {
         )}
         {activeTab === "profile" && <ProfileMode version={appVersion} />}
       </main>
+      {isModalOpen && (
+        <GlobalStatsModal
+          targetDateStr={activeDateStr}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 }
