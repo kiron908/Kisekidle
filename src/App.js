@@ -683,30 +683,68 @@ function QuoteMode({ version, targetDateObj, targetDateStr, isArchive }) {
         </div>
       )}
 
-        <div className="hints-container">
+      <div className="hints-container">
+        {/* --- HINT 1: REVEAL GAME --- */}
         <div className="hint-wrapper" style={{ margin: "0 auto" }}>
           <button
             className={`hint-btn ${
-              (isGameRevealed || hasWon || isGameOver)
+              isGameRevealed || hasWon || isGameOver
                 ? "revealed"
                 : guessesNeededForGame <= 0
                 ? "unlocked"
                 : "locked"
             }`}
             onClick={() => guessesNeededForGame <= 0 && setIsGameRevealed(true)}
-            disabled={guessesNeededForGame > 0 || isGameRevealed || hasWon || isGameOver}
+            disabled={
+              guessesNeededForGame > 0 || isGameRevealed || hasWon || isGameOver
+            }
           >
-            {(isGameRevealed || hasWon || isGameOver) 
+            {isGameRevealed || hasWon || isGameOver
               ? `Game: ${targetQuote.game}`
               : "Reveal Game"}
           </button>
-          
-          {/* Hide the subtext if the game is over */}
+
           {!(hasWon || isGameOver) && (
             <div className="hint-condition">
               {guessesNeededForGame > 0
-                ? `Available after ${guessesNeededForGame} more wrong guess${
+                ? `Available after ${guessesNeededForGame} more guess${
                     guessesNeededForGame > 1 ? "es" : ""
+                  }`
+                : "Unlocked!"}
+            </div>
+          )}
+        </div>
+
+        {/* --- HINT 2: REVEAL RECIPIENT --- */}
+        <div className="hint-wrapper" style={{ margin: "0 auto" }}>
+          <button
+            className={`hint-btn ${
+              isRecipientRevealed || hasWon || isGameOver
+                ? "revealed"
+                : guessesNeededForRecipient <= 0
+                ? "unlocked"
+                : "locked"
+            }`}
+            onClick={() =>
+              guessesNeededForRecipient <= 0 && setIsRecipientRevealed(true)
+            }
+            disabled={
+              guessesNeededForRecipient > 0 ||
+              isRecipientRevealed ||
+              hasWon ||
+              isGameOver
+            }
+          >
+            {isRecipientRevealed || hasWon || isGameOver
+              ? `To: ${targetQuote.recipient}`
+              : "Reveal Recipient"}
+          </button>
+
+          {!(hasWon || isGameOver) && (
+            <div className="hint-condition">
+              {guessesNeededForRecipient > 0
+                ? `Available after ${guessesNeededForRecipient} more guess${
+                    guessesNeededForRecipient > 1 ? "es" : ""
                   }`
                 : "Unlocked!"}
             </div>
@@ -992,24 +1030,27 @@ function MusicMode({ version, targetDateObj, targetDateStr, isArchive }) {
         </div>
       )}
 
-        <div className="hints-container">
-
-          {/* --- HINT 1: REVEAL TYPE --- */}
+      <div className="hints-container">
+        {/* --- HINT 1: REVEAL TYPE --- */}
         <div className="hint-wrapper" style={{ margin: "0 auto" }}>
           <button
             className={`hint-btn ${
-              (isTypeRevealed || hasWon || isGameOver)
+              isTypeRevealed || hasWon || isGameOver
                 ? "revealed"
                 : guessesNeededForType <= 0
                 ? "unlocked"
                 : "locked"
             }`}
             onClick={() => guessesNeededForType <= 0 && setIsTypeRevealed(true)}
-            disabled={guessesNeededForType > 0 || isTypeRevealed || hasWon || isGameOver}
+            disabled={
+              guessesNeededForType > 0 || isTypeRevealed || hasWon || isGameOver
+            }
           >
-            {(isTypeRevealed || hasWon || isGameOver) ? `Type: ${targetTrack.type}` : "Reveal Type"}
+            {isTypeRevealed || hasWon || isGameOver
+              ? `Type: ${targetTrack.type}`
+              : "Reveal Type"}
           </button>
-          
+
           {!(hasWon || isGameOver) && (
             <div className="hint-condition">
               {guessesNeededForType > 0
@@ -1020,23 +1061,27 @@ function MusicMode({ version, targetDateObj, targetDateStr, isArchive }) {
             </div>
           )}
         </div>
-        
+
         {/* --- HINT 2: REVEAL GAME --- */}
         <div className="hint-wrapper" style={{ margin: "0 auto" }}>
           <button
             className={`hint-btn ${
-              (isGameRevealed || hasWon || isGameOver)
+              isGameRevealed || hasWon || isGameOver
                 ? "revealed"
                 : guessesNeededForGame <= 0
                 ? "unlocked"
                 : "locked"
             }`}
             onClick={() => guessesNeededForGame <= 0 && setIsGameRevealed(true)}
-            disabled={guessesNeededForGame > 0 || isGameRevealed || hasWon || isGameOver}
+            disabled={
+              guessesNeededForGame > 0 || isGameRevealed || hasWon || isGameOver
+            }
           >
-            {(isGameRevealed || hasWon || isGameOver) ? `Game: ${targetTrack.game}` : "Reveal Game"}
+            {isGameRevealed || hasWon || isGameOver
+              ? `Game: ${targetTrack.game}`
+              : "Reveal Game"}
           </button>
-          
+
           {!(hasWon || isGameOver) && (
             <div className="hint-condition">
               {guessesNeededForGame > 0
@@ -1047,7 +1092,6 @@ function MusicMode({ version, targetDateObj, targetDateStr, isArchive }) {
             </div>
           )}
         </div>
-
       </div>
 
       {!hasWon && !isGameOver && (
@@ -1128,9 +1172,10 @@ function LocationMode({ version, targetDateObj, targetDateStr, isArchive }) {
 
   // --- CAROUSEL LOGIC ---
   // If the game is over, unlock all images. Otherwise, limit it by wrong guesses.
-  const maxRevealedIndex = (hasWon || isGameOver)
-    ? targetLocation.imageFilePaths.length - 1
-    : Math.min(wrongGuessesCount, targetLocation.imageFilePaths.length - 1);
+  const maxRevealedIndex =
+    hasWon || isGameOver
+      ? targetLocation.imageFilePaths.length - 1
+      : Math.min(wrongGuessesCount, targetLocation.imageFilePaths.length - 1);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(maxRevealedIndex);
 
@@ -1209,13 +1254,14 @@ function LocationMode({ version, targetDateObj, targetDateStr, isArchive }) {
             textAlign: "center",
           }}
         >
-          Image {currentImageIndex + 1} of {targetLocation.imageFilePaths.length}
+          Image {currentImageIndex + 1} of{" "}
+          {targetLocation.imageFilePaths.length}
         </p>
       </div>
 
       <div
         style={{
-          position: "relative", /* <-- Required for floating arrows */
+          position: "relative" /* <-- Required for floating arrows */,
           width: "100%",
           height: "300px",
           backgroundColor: "#1a1e2a",
@@ -1318,25 +1364,31 @@ function LocationMode({ version, targetDateObj, targetDateStr, isArchive }) {
         </div>
       )}
 
-
-<div className="hints-container">
+      <div className="hints-container">
         <div className="hint-wrapper" style={{ margin: "0 auto" }}>
           <button
             className={`hint-btn ${
-              (isNationRevealed || hasWon || isGameOver)
+              isNationRevealed || hasWon || isGameOver
                 ? "revealed"
                 : guessesNeededForNation <= 0
                 ? "unlocked"
                 : "locked"
             }`}
-            onClick={() => guessesNeededForNation <= 0 && setIsNationRevealed(true)}
-            disabled={guessesNeededForNation > 0 || isNationRevealed || hasWon || isGameOver}
+            onClick={() =>
+              guessesNeededForNation <= 0 && setIsNationRevealed(true)
+            }
+            disabled={
+              guessesNeededForNation > 0 ||
+              isNationRevealed ||
+              hasWon ||
+              isGameOver
+            }
           >
-            {(isNationRevealed || hasWon || isGameOver)
+            {isNationRevealed || hasWon || isGameOver
               ? `Nation: ${targetLocation.locationNation}`
               : "Reveal Nation"}
           </button>
-          
+
           {!(hasWon || isGameOver) && (
             <div className="hint-condition">
               {guessesNeededForNation > 0
@@ -1940,25 +1992,31 @@ function CraftsMode({ version, targetDateObj, targetDateStr, isArchive }) {
       </div>
 
       <div className="hints-container">
-        
         {/* --- HINT 1: REVEAL GENDER --- */}
         <div className="hint-wrapper" style={{ margin: "0 auto" }}>
           <button
             className={`hint-btn ${
-              (isGenderRevealed || hasWon || isGameOver)
+              isGenderRevealed || hasWon || isGameOver
                 ? "revealed"
                 : guessesNeededForGender <= 0
                 ? "unlocked"
                 : "locked"
             }`}
-            onClick={() => guessesNeededForGender <= 0 && setIsGenderRevealed(true)}
-            disabled={guessesNeededForGender > 0 || isGenderRevealed || hasWon || isGameOver}
+            onClick={() =>
+              guessesNeededForGender <= 0 && setIsGenderRevealed(true)
+            }
+            disabled={
+              guessesNeededForGender > 0 ||
+              isGenderRevealed ||
+              hasWon ||
+              isGameOver
+            }
           >
-            {(isGenderRevealed || hasWon || isGameOver) 
-              ? `Gender: ${targetCraft.gender}` 
+            {isGenderRevealed || hasWon || isGameOver
+              ? `Gender: ${targetCraft.gender}`
               : "Reveal Gender"}
           </button>
-          
+
           {!(hasWon || isGameOver) && (
             <div className="hint-condition">
               {guessesNeededForGender > 0
@@ -1974,20 +2032,22 @@ function CraftsMode({ version, targetDateObj, targetDateStr, isArchive }) {
         <div className="hint-wrapper" style={{ margin: "0 auto" }}>
           <button
             className={`hint-btn ${
-              (isGameRevealed || hasWon || isGameOver)
+              isGameRevealed || hasWon || isGameOver
                 ? "revealed"
                 : guessesNeededForGame <= 0
                 ? "unlocked"
                 : "locked"
             }`}
             onClick={() => guessesNeededForGame <= 0 && setIsGameRevealed(true)}
-            disabled={guessesNeededForGame > 0 || isGameRevealed || hasWon || isGameOver}
+            disabled={
+              guessesNeededForGame > 0 || isGameRevealed || hasWon || isGameOver
+            }
           >
-            {(isGameRevealed || hasWon || isGameOver) 
-              ? `Game: ${targetCraft.game}` 
+            {isGameRevealed || hasWon || isGameOver
+              ? `Game: ${targetCraft.game}`
               : "Reveal Debut Game"}
           </button>
-          
+
           {!(hasWon || isGameOver) && (
             <div className="hint-condition">
               {guessesNeededForGame > 0
@@ -1998,7 +2058,6 @@ function CraftsMode({ version, targetDateObj, targetDateStr, isArchive }) {
             </div>
           )}
         </div>
-
       </div>
 
       {hasWon && (
@@ -2238,24 +2297,26 @@ function SilhouetteMode({ version, targetDateObj, targetDateStr, isArchive }) {
         </div>
       )}
 
-<div className="hints-container">
+      <div className="hints-container">
         <div className="hint-wrapper" style={{ margin: "0 auto" }}>
           <button
             className={`hint-btn ${
-              (isGameRevealed || hasWon || isGameOver)
+              isGameRevealed || hasWon || isGameOver
                 ? "revealed"
                 : guessesNeededForGame <= 0
                 ? "unlocked"
                 : "locked"
             }`}
             onClick={() => guessesNeededForGame <= 0 && setIsGameRevealed(true)}
-            disabled={guessesNeededForGame > 0 || isGameRevealed || hasWon || isGameOver}
+            disabled={
+              guessesNeededForGame > 0 || isGameRevealed || hasWon || isGameOver
+            }
           >
-            {(isGameRevealed || hasWon || isGameOver)
+            {isGameRevealed || hasWon || isGameOver
               ? `Debut: ${targetSilhouette.debutGame}`
               : "Reveal Debut Game"}
           </button>
-          
+
           {!(hasWon || isGameOver) && (
             <div className="hint-condition">
               {guessesNeededForGame > 0
