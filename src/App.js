@@ -3750,22 +3750,24 @@ export default function App() {
             backgroundColor: "#161a24",
           }}
         >
-          <button
-            onClick={handleAdminReset}
-            style={{
-              backgroundColor: "transparent",
-              color: "#ff4d4d",
-              border: "1px solid #ff4d4d",
-              padding: "8px",
-              borderRadius: "4px",
-              cursor: "pointer",
-              width: "100%",
-              fontWeight: "bold",
-              fontSize: "12px",
-            }}
-          >
-            ⚠️ Admin Reset
-          </button>
+          {process.env.NODE_ENV === "development" && (
+            <button
+              onClick={handleAdminReset}
+              style={{
+                backgroundColor: "transparent",
+                color: "#ff4d4d",
+                border: "1px solid #ff4d4d",
+                padding: "8px",
+                borderRadius: "4px",
+                cursor: "pointer",
+                width: "100%",
+                fontWeight: "bold",
+                fontSize: "12px",
+              }}
+            >
+              ⚠️ Admin Reset
+            </button>
+          )}
         </div>
       </aside>
 

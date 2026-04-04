@@ -186,7 +186,7 @@ export default function GlobalStatsModal({ targetDateStr, onClose }) {
                       marginTop: "10px",
                     }}
                   >
-                    <strong>Top Answers:</strong>
+                    <strong>Most Common Guesses:</strong>
 
                     {/* --- SPOILER MASK LOGIC --- */}
                     {isFinished ? (
