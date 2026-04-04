@@ -12503,4 +12503,89 @@ export const SILHOUETTES = [
     character: "Henry MacDowell",
     debutGame: "Trails from Zero",
   },
+  {
+    id: "68",
+    character: "Abbas",
+    debutGame: "Trails from Zero",
+  },
+  {
+    id: "69",
+    character: "Arianrhod",
+    debutGame: "Trails to Azure",
+  },
+  {
+    id: "70",
+    character: "Novartis",
+    debutGame: "Trails to Azure",
+  },
+  {
+    id: "71",
+    character: "Guy Bannings",
+    debutGame: "Trails from Zero",
+  },
+  {
+    id: "72",
+    character: "Sigmund Orlando",
+    debutGame: "Trails to Azure",
+  },
+  {
+    id: "73",
+    character: "Shirley Orlando",
+    debutGame: "Trails to Azure",
+  },
+  {
+    id: "74",
+    character: "Samuel Rocksmith",
+    debutGame: "Trails to Azure",
+  },
+  {
+    id: "75",
+    character: "Mireille",
+    debutGame: "Trails from Zero",
+  },
+  {
+    id: "76",
+    character: "Michel",
+    debutGame: "Trails from Zero",
+  },
+  {
+    id: "77",
+    character: "Alfin Reise Anor",
+    debutGame: "Trails of Cold Steel",
+  },
+  {
+    id: "78",
+    character: "Alisa Reinford",
+    debutGame: "Trails of Cold Steel",
+  },
+  {
+    id: "79",
+    character: "Angelica Rogner",
+    debutGame: "Trails of Cold Steel",
+  },
+  {
+    id: "80",
+    character: "Bridgette",
+    debutGame: "Trails of Cold Steel",
+  },
+  {
+    id: "81",
+    character: "Carl Regnitz",
+    debutGame: "Trails of Cold Steel",
+  },
+  {
+    id: "82",
+    character: "Celine Millstein",
+    debutGame: "Trails of Cold Steel",
+  },
+  {
+    id: "83",
+    character: "Claire Rieveldt",
+    debutGame: "Trails of Cold Steel",
+  },
+  {
+    id: "84",
+    character: "Crow Armbrust",
+    debutGame: "Trails of Cold Steel",
+  },
 ];
