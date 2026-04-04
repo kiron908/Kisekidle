@@ -1055,7 +1055,7 @@ export const CHARACTERS = [
   },
   {
     id: "88",
-    name: "Klaus",
+    name: "Mayor Klaus",
     gender: "Male",
     weapon: "N/A",
     nationality: "Liberlian",

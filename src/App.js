@@ -3115,7 +3115,6 @@ export default function App() {
     "kisekidle-seen-new-version",
     false
   );
-  const [showNewVersionModal, setShowNewVersionModal] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [targetDateObj, setTargetDateObj] = useState(null);
   const activeDateObj = targetDateObj || new Date();
@@ -3141,9 +3140,6 @@ export default function App() {
 
   const handleVersionSwitch = (version) => {
     setAppVersion(version);
-    if (version === "new" && !hasSeenVersionModal) {
-      setShowNewVersionModal(true);
-    }
     // Boot them back to the character tab if they are currently on a new mode and switch back to legacy
     if (
       version === "legacy" &&
@@ -3163,13 +3159,6 @@ export default function App() {
 
       {isSettingsOpen && (
         <SettingsModal onClose={() => setIsSettingsOpen(false)} />
-      )}
-
-      {showNewVersionModal && (
-        <NewVersionModal
-          onClose={() => setShowNewVersionModal(false)}
-          onConfirmDoNotShow={() => setHasSeenVersionModal(true)}
-        />
       )}
 
       {/* Left Sidebar */}
