@@ -12588,4 +12588,24 @@ export const SILHOUETTES = [
     character: "Crow Armbrust",
     debutGame: "Trails of Cold Steel",
   },
+  {
+    id: "85",
+    character: "Elise Schwarzer",
+    debutGame: "Trails of Cold Steel",
+  },
+  {
+    id: "86",
+    character: "Elliot Craig",
+    debutGame: "Trails of Cold Steel",
+  },
+  {
+    id: "87",
+    character: "Emma Millstein",
+    debutGame: "Trails of Cold Steel",
+  },
+  {
+    id: "88",
+    character: "Fie Claussell",
+    debutGame: "Trails of Cold Steel",
+  },
 ];

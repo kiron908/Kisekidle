@@ -312,36 +312,37 @@ function CharacterMode({
     }
   }, [hasWon, isGameOver]);
 
-  // --- GLOBAL STATS TRACKING ---
+  // --- CHARACTER MODE TRACKING ---
   useEffect(() => {
-    // Only run this when the end screen is ready to show, and only run it once!
-    if (showEndScreen && !globalStats) {
+    // 1. Create a unique receipt name for today's character game
+    const syncReceipt = `synced-character-${targetDateStr}`;
+    const hasAlreadySynced = localStorage.getItem(syncReceipt);
+
+    if (showEndScreen && !hasAlreadySynced) {
       const updateAndFetchStats = async () => {
         try {
-          // 1. Point to today's specific document in the database
           const statsRef = doc(db, "character_stats", targetDateStr);
 
-          // 2. Build the base stats payload WITH a real guessTally object
           const updateData = {
             totalPlays: increment(1),
             totalWins: hasWon ? increment(1) : increment(0),
             totalWinningAttempts: hasWon
               ? increment(guessedCharacters.length)
               : increment(0),
-            guessTally: {}, // <-- Create the actual folder here!
+            guessTally: {},
           };
 
-          // 3. Loop through EVERY guess and place it INSIDE the folder
           guessedCharacters.forEach((char) => {
             if (char && char.name) {
               updateData.guessTally[char.name] = increment(1);
             }
           });
 
-          // 4. Safely send the whole package to Firebase
           await setDoc(statsRef, updateData, { merge: true });
 
-          //Immediately pull the updated numbers back down to show the player
+          // 2. IMPORTANT: Save the receipt so we NEVER send this data again today!
+          localStorage.setItem(syncReceipt, "true");
+
           const updatedDoc = await getDoc(statsRef);
           if (updatedDoc.exists()) {
             setGlobalStats(updatedDoc.data());
@@ -353,13 +354,7 @@ function CharacterMode({
 
       updateAndFetchStats();
     }
-  }, [
-    showEndScreen,
-    hasWon,
-    guessedCharacters.length,
-    targetDateStr,
-    globalStats,
-  ]);
+  }, [showEndScreen, targetDateStr, hasWon, guessedCharacters]);
 
   const handleGuess = (selectedChar) => {
     if (guessedCharacters.find((c) => c.id === selectedChar.id)) return;
@@ -711,7 +706,10 @@ function QuoteMode({
 
   // --- QUOTE MODE TRACKING ---
   useEffect(() => {
-    if ((hasWon || isGameOver) && !globalStats) {
+    const syncReceipt = `synced-quote-${targetDateStr}`;
+    const hasAlreadySynced = localStorage.getItem(syncReceipt);
+
+    if ((hasWon || isGameOver) && !hasAlreadySynced) {
       const updateAndFetchStats = async () => {
         try {
           const statsRef = doc(db, "quote_stats", targetDateStr);
@@ -728,6 +726,7 @@ function QuoteMode({
               updateData.guessTally[char.name] = increment(1);
           });
           await setDoc(statsRef, updateData, { merge: true });
+          localStorage.setItem(syncReceipt, "true");
           const updatedDoc = await getDoc(statsRef);
           if (updatedDoc.exists()) setGlobalStats(updatedDoc.data());
         } catch (error) {
@@ -1064,7 +1063,10 @@ function MusicMode({
 
   // --- MUSIC MODE TRACKING ---
   useEffect(() => {
-    if ((hasWon || isGameOver) && !globalStats) {
+    const syncReceipt = `synced-music-${targetDateStr}`;
+    const hasAlreadySynced = localStorage.getItem(syncReceipt);
+
+    if ((hasWon || isGameOver) && !hasAlreadySynced) {
       const updateAndFetchStats = async () => {
         try {
           const statsRef = doc(db, "music_stats", targetDateStr);
@@ -1081,6 +1083,7 @@ function MusicMode({
               updateData.guessTally[track.title] = increment(1);
           });
           await setDoc(statsRef, updateData, { merge: true });
+          localStorage.setItem(syncReceipt, "true");
           const updatedDoc = await getDoc(statsRef);
           if (updatedDoc.exists()) setGlobalStats(updatedDoc.data());
         } catch (error) {
@@ -1456,7 +1459,10 @@ function LocationMode({
 
   // --- LOCATION MODE TRACKING ---
   useEffect(() => {
-    if ((hasWon || isGameOver) && !globalStats) {
+    const syncReceipt = `synced-location-${targetDateStr}`;
+    const hasAlreadySynced = localStorage.getItem(syncReceipt);
+
+    if ((hasWon || isGameOver) && !hasAlreadySynced) {
       const updateAndFetchStats = async () => {
         try {
           const statsRef = doc(db, "location_stats", targetDateStr);
@@ -1473,6 +1479,7 @@ function LocationMode({
               updateData.guessTally[loc.locationName] = increment(1);
           });
           await setDoc(statsRef, updateData, { merge: true });
+          localStorage.setItem(syncReceipt, "true");
           const updatedDoc = await getDoc(statsRef);
           if (updatedDoc.exists()) setGlobalStats(updatedDoc.data());
         } catch (error) {
@@ -2064,7 +2071,10 @@ function TriviaMode({
 
   // --- TRIVIA TRACKING ---
   useEffect(() => {
-    if ((hasWon || isGameOver) && !globalStats) {
+    const syncReceipt = `synced-trivia-${targetDateStr}`;
+    const hasAlreadySynced = localStorage.getItem(syncReceipt);
+
+    if ((hasWon || isGameOver) && !hasAlreadySynced) {
       const updateAndFetchStats = async () => {
         try {
           const statsRef = doc(db, "trivia_stats", targetDateStr);
@@ -2081,6 +2091,7 @@ function TriviaMode({
             if (option) updateData.guessTally[option] = increment(1);
           });
           await setDoc(statsRef, updateData, { merge: true });
+          localStorage.setItem(syncReceipt, "true");
           const updatedDoc = await getDoc(statsRef);
           if (updatedDoc.exists()) setGlobalStats(updatedDoc.data());
         } catch (error) {
@@ -2325,7 +2336,10 @@ function CraftsMode({
 
   // --- CRAFTS MODE TRACKING ---
   useEffect(() => {
-    if ((hasWon || isGameOver) && !globalStats) {
+    const syncReceipt = `synced-character-${targetDateStr}`;
+    const hasAlreadySynced = localStorage.getItem(syncReceipt);
+
+    if ((hasWon || isGameOver) && !hasAlreadySynced) {
       const updateAndFetchStats = async () => {
         try {
           const statsRef = doc(db, "crafts_stats", targetDateStr);
@@ -2342,6 +2356,7 @@ function CraftsMode({
               updateData.guessTally[craft.craftName] = increment(1);
           });
           await setDoc(statsRef, updateData, { merge: true });
+          localStorage.setItem(syncReceipt, "true");
           const updatedDoc = await getDoc(statsRef);
           if (updatedDoc.exists()) setGlobalStats(updatedDoc.data());
         } catch (error) {
@@ -2644,7 +2659,10 @@ function SilhouetteMode({
 
   // --- SILHOUETTE TRACKING ---
   useEffect(() => {
-    if ((hasWon || isGameOver) && !globalStats) {
+    const syncReceipt = `synced-character-${targetDateStr}`;
+    const hasAlreadySynced = localStorage.getItem(syncReceipt);
+
+    if ((hasWon || isGameOver) && !hasAlreadySynced) {
       const updateAndFetchStats = async () => {
         try {
           const statsRef = doc(db, "silhouette_stats", targetDateStr);
@@ -2661,6 +2679,7 @@ function SilhouetteMode({
             if (char) updateData.guessTally[char] = increment(1);
           });
           await setDoc(statsRef, updateData, { merge: true });
+          localStorage.setItem(syncReceipt, "true");
           const updatedDoc = await getDoc(statsRef);
           if (updatedDoc.exists()) setGlobalStats(updatedDoc.data());
         } catch (error) {

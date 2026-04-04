@@ -191,18 +191,79 @@ export default function GlobalStatsModal({ targetDateStr, onClose }) {
                     {/* --- SPOILER MASK LOGIC --- */}
                     {isFinished ? (
                       top5.length > 0 ? (
-                        <ul
-                          style={{
-                            margin: "5px 0 0 0",
-                            paddingLeft: "20px",
-                            color: "#e0e6f8",
-                          }}
-                        >
-                          {top5.map(([name, count]) => (
-                            <li key={name}>
-                              {name} ({count} guesses)
-                            </li>
-                          ))}
+                        // 1. Removed padding and default bullet points
+                        <ul style={{ margin: "10px 0 0 0", padding: 0 }}>
+                          {top5.map(([name, count]) => {
+                            // 2. Calculate percentage based on the TOTAL PLAYERS today
+                            const percent =
+                              data.totalPlays > 0
+                                ? Math.round((count / data.totalPlays) * 100)
+                                : 0;
+
+                            // 3. Dynamic colors! Green for popular, Yellow/Orange for medium, Blue for rare
+                            const barColor =
+                              percent >= 70
+                                ? "#4CAF50"
+                                : percent >= 50
+                                ? "#FF9800"
+                                : "#4a90e2";
+
+                            return (
+                              <li
+                                key={name}
+                                style={{
+                                  position: "relative", // Required so the bar stays inside the box
+                                  marginBottom: "8px",
+                                  padding: "6px 12px",
+                                  borderRadius: "6px",
+                                  backgroundColor: "#1a1e2a", // Dark gray base
+                                  listStyleType: "none",
+                                  display: "flex",
+                                  justifyContent: "space-between",
+                                  zIndex: 1,
+                                  overflow: "hidden",
+                                }}
+                              >
+                                {/* --- THE DYNAMIC PROGRESS BAR --- */}
+                                <div
+                                  style={{
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                    height: "100%",
+                                    width: `${percent}%`, // Fills the box based on the %
+                                    backgroundColor: barColor,
+                                    opacity: 0.3, // Keeps it transparent so text is easily readable
+                                    zIndex: -1, // Puts it behind the text
+                                    transition: "width 0.5s ease-out", // Smooth animation when it loads!
+                                  }}
+                                />
+
+                                {/* The Text */}
+                                <span
+                                  style={{
+                                    fontWeight: "bold",
+                                    color: "#e0e6f8",
+                                    zIndex: 2,
+                                  }}
+                                >
+                                  {name}
+                                </span>
+                                <span
+                                  style={{
+                                    color: "#a0a5b5",
+                                    fontSize: "0.85rem",
+                                    zIndex: 2,
+                                  }}
+                                >
+                                  {count}{" "}
+                                  <span style={{ opacity: 0.7 }}>
+                                    ({percent}%)
+                                  </span>
+                                </span>
+                              </li>
+                            );
+                          })}
                         </ul>
                       ) : (
                         <div
