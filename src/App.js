@@ -14,6 +14,7 @@ import {
 import { doc, setDoc, getDoc, increment } from "firebase/firestore";
 import { db } from "./firebase";
 import GlobalStatsModal from "./GlobalStatsModal";
+import PatchNotesModal from "./PatchNotesModal";
 
 const GAME_ORDER = [
   "FC",
@@ -3533,6 +3534,7 @@ export default function App() {
   const activeDateObj = targetDateObj || new Date();
   const activeDateStr = getDateString(activeDateObj);
   const isArchive = targetDateObj !== null;
+  const [isPatchModalOpen, setIsPatchModalOpen] = useState(false);
 
   const handleReturnToToday = () => {
     setTargetDateObj(null);
@@ -3621,6 +3623,38 @@ export default function App() {
             onClick={() => setActiveTab("locations")}
           >
             <span>📍</span> Location
+          </button>
+
+          <button
+            className={`nav-button ${activeTab === "archive" ? "active" : ""}`}
+            onClick={() => setActiveTab("archive")}
+          >
+            <span>📅</span> Day Replay
+          </button>
+
+          {/* --- NEW BUTTONS WITH CORRECT UI --- */}
+          <div
+            style={{
+              height: "1px",
+              backgroundColor: "#2d3446",
+              margin: "10px 20px",
+            }}
+          ></div>
+
+          <button
+            className="nav-button"
+            onClick={() => setIsPatchModalOpen(true)}
+          >
+            <span>📝</span> Patch Notes
+          </button>
+
+          <button
+            className="nav-button"
+            onClick={() =>
+              window.open("https://forms.gle/sFs45bnAQt8Bznxx9", "_blank")
+            }
+          >
+            <span>🐛</span> Report Bug/Feedback
           </button>
 
           {/* New Modes Only Show in 'New Version' */}
@@ -3828,6 +3862,9 @@ export default function App() {
           targetDateStr={activeDateStr}
           onClose={() => setIsModalOpen(false)}
         />
+      )}
+      {isPatchModalOpen && (
+        <PatchNotesModal onClose={() => setIsPatchModalOpen(false)} />
       )}
     </div>
   );
