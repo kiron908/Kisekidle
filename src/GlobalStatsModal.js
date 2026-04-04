@@ -114,8 +114,14 @@ export default function GlobalStatsModal({ targetDateStr, onClose }) {
   };
 
   return (
-    <div className="modal-overlay" style={overlayStyle}>
-      <div className="modal-content" style={contentStyle}>
+    // 1. Add onClick={onClose} to the dark background overlay
+    <div className="modal-overlay" style={overlayStyle} onClick={onClose}>
+      {/* 2. Add e.stopPropagation() to the main card */}
+      <div
+        className="modal-content"
+        style={contentStyle}
+        onClick={(e) => e.stopPropagation()}
+      >
         <button onClick={onClose} style={closeBtnStyle}>
           ✖
         </button>

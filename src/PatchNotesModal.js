@@ -10,8 +10,14 @@ const PATCHES = [
 
 export default function PatchNotesModal({ onClose }) {
   return (
-    <div className="modal-overlay" style={overlayStyle}>
-      <div className="modal-content" style={contentStyle}>
+    // 1. Add onClose to the overlay
+    <div className="modal-overlay" style={overlayStyle} onClick={onClose}>
+      {/* 2. Block the click on the content */}
+      <div
+        className="modal-content"
+        style={contentStyle}
+        onClick={(e) => e.stopPropagation()}
+      >
         <button onClick={onClose} style={closeBtnStyle}>
           ✖
         </button>

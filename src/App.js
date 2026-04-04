@@ -389,9 +389,21 @@ function CharacterMode({
     Array.isArray(trait) ? trait.join(", ") : trait;
 
   const getAgeArrow = (guessAge, targetAge) => {
+    // 1. If the exact strings match (e.g., both are "Unknown"), no hint needed!
+    if (guessAge === targetAge) return null;
+
     const gAge = parseInt(guessAge);
     const tAge = parseInt(targetAge);
-    if (isNaN(gAge) || isNaN(tAge) || gAge === tAge) return null;
+
+    // 2. If either age is missing or text (like "Unknown"), return a question mark instead
+    if (isNaN(gAge) || isNaN(tAge)) {
+      return <span className="hint-arrow">?</span>;
+    }
+
+    // 3. If they are the exact same number, no arrow needed
+    if (gAge === tAge) return null;
+
+    // 4. Normal up/down calculation
     const arrow = gAge < tAge ? "↑" : "↓";
     return <span className="hint-arrow">{arrow}</span>;
   };
@@ -2368,7 +2380,7 @@ function CraftsMode({
 
   // --- CRAFTS MODE TRACKING ---
   useEffect(() => {
-    const syncReceipt = `synced-character-${targetDateStr}`;
+    const syncReceipt = `synced-crafts-${targetDateStr}`;
     const hasAlreadySynced = localStorage.getItem(syncReceipt);
 
     if ((hasWon || isGameOver) && !hasAlreadySynced) {
@@ -2653,7 +2665,6 @@ function SilhouetteMode({
   );
   const guessedCharacters = storedGuesses || [];
   const [isCopied, setIsCopied] = useState(false);
-  const [globalStats, setGlobalStats] = useState(null);
 
   // UPDATED: Now uses the SILHOUETTES array from data.js!
   const [targetSilhouette] = useState(getDailyItem(SILHOUETTES, targetDateObj));
@@ -2665,6 +2676,7 @@ function SilhouetteMode({
   const hasWon = guessedCharacters.includes(targetSilhouette.character);
   const guessesLeft = MAX_GUESSES - guessedCharacters.length;
   const isGameOver = guessesLeft <= 0 && !hasWon;
+  const [globalStats, setGlobalStats] = useState(null);
 
   const [isGameRevealed, setIsGameRevealed] = useState(false);
   const guessesNeededForGame = Math.max(0, 3 - wrongGuessesCount);
@@ -2691,7 +2703,7 @@ function SilhouetteMode({
 
   // --- SILHOUETTE TRACKING ---
   useEffect(() => {
-    const syncReceipt = `synced-character-${targetDateStr}`;
+    const syncReceipt = `synced-silhouette-${targetDateStr}`;
     const hasAlreadySynced = localStorage.getItem(syncReceipt);
 
     if ((hasWon || isGameOver) && !hasAlreadySynced) {
@@ -3676,38 +3688,6 @@ export default function App() {
             <span>📍</span> Location
           </button>
 
-          <button
-            className={`nav-button ${activeTab === "archive" ? "active" : ""}`}
-            onClick={() => setActiveTab("archive")}
-          >
-            <span>📅</span> Day Replay
-          </button>
-
-          {/* --- NEW BUTTONS WITH CORRECT UI --- */}
-          <div
-            style={{
-              height: "1px",
-              backgroundColor: "#2d3446",
-              margin: "10px 20px",
-            }}
-          ></div>
-
-          <button
-            className="nav-button"
-            onClick={() => setIsPatchModalOpen(true)}
-          >
-            <span>📝</span> Patch Notes
-          </button>
-
-          <button
-            className="nav-button"
-            onClick={() =>
-              window.open("https://forms.gle/sFs45bnAQt8Bznxx9", "_blank")
-            }
-          >
-            <span>🐛</span> Report Bug/Feedback
-          </button>
-
           {/* New Modes Only Show in 'New Version' */}
           {appVersion === "new" && (
             <>
@@ -3746,6 +3726,30 @@ export default function App() {
             </>
           )}
 
+          {/* --- NEW BUTTONS WITH CORRECT UI --- */}
+          <div
+            style={{
+              height: "1px",
+              backgroundColor: "#2d3446",
+              margin: "10px 20px",
+            }}
+          ></div>
+
+          <button
+            className="nav-button"
+            onClick={() => setIsPatchModalOpen(true)}
+          >
+            <span>📝</span> Patch Notes
+          </button>
+
+          <button
+            className="nav-button"
+            onClick={() =>
+              window.open("https://forms.gle/sFs45bnAQt8Bznxx9", "_blank")
+            }
+          >
+            <span>🐛</span> Report Bug/Feedback
+          </button>
           <div
             style={{
               height: "1px",
