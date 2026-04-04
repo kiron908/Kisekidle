@@ -3901,7 +3901,8 @@ export const QUOTES = [
     game: "CS3",
     recipient: "Roselia",
     recipientImage: "/images/characterSquares/roselia.webp",
-    trailsDbUrl: "",
+    trailsDbUrl:
+      "https://trailsinthedatabase.com/game-scripts?fname=m3490&game_id=8#38",
   },
   {
     id: "75",

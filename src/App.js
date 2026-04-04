@@ -802,6 +802,22 @@ function QuoteMode({
           <p>
             The character was <strong>{targetQuote.character}</strong>.
           </p>
+          {targetQuote.trailsDbUrl && (
+            <div style={{ margin: "10px 0 15px 0" }}>
+              <a
+                href={targetQuote.trailsDbUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: "#4a90e2",
+                  textDecoration: "underline",
+                  fontSize: "0.9rem",
+                }}
+              >
+                📖 View context in Trails in the Database
+              </a>
+            </div>
+          )}
           <button
             onClick={() => setIsModalOpen(true)}
             style={{
@@ -830,6 +846,22 @@ function QuoteMode({
           <p>
             The correct character was <strong>{targetQuote.character}</strong>.
           </p>
+          {targetQuote.trailsDbUrl && (
+            <div style={{ margin: "10px 0 15px 0" }}>
+              <a
+                href={targetQuote.trailsDbUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: "#4a90e2",
+                  textDecoration: "underline",
+                  fontSize: "0.9rem",
+                }}
+              >
+                📖 View context in Trails in the Database
+              </a>
+            </div>
+          )}
           <button
             onClick={() => setIsModalOpen(true)}
             style={{
