@@ -324,8 +324,8 @@ function CharacterMode({
           // (merge: true ensures it creates the document if it's the first play of the day!)
           // Grab the name of their most recent guess to log it!
           const lastGuessName =
-            guesses.length > 0
-              ? guesses[guessedCharacters.length - 1].name
+            guessedCharacters.length > 0
+              ? guessedCharacters[guessedCharacters.length - 1].name
               : "Unknown";
 
           await setDoc(

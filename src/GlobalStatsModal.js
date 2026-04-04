@@ -68,20 +68,40 @@ export default function GlobalStatsModal({ targetDateStr, onClose }) {
     fetchAllStats();
   }, [targetDateStr]);
 
-  // --- ANTI-CHEAT CHECKER ---
-  // Checks if the player has won or run out of guesses for this specific mode
+  // --- UPGRADED ANTI-CHEAT CHECKER ---
   const checkIfFinished = (storageKey, maxGuessesForMode) => {
     try {
-      const savedData = localStorage.getItem(`${storageKey}-${targetDateStr}`);
+      // 1. Try to find the data with the date attached (Pattern A)
+      let savedData = localStorage.getItem(`${storageKey}-${targetDateStr}`);
+
+      // 2. Try to find the data WITHOUT the date attached (Pattern B)
+      if (!savedData) {
+        savedData = localStorage.getItem(storageKey);
+      }
+
+      // DEBUGGING: This will print exactly what it finds to your console!
+      //console.log(`[Modal Check] Mode: ${storageKey} | Found Data:`, savedData);
+
+      // If absolutely nothing is found, keep it locked.
       if (!savedData) return false;
 
-      const guesses = JSON.parse(savedData);
-      if (guesses.length === 0) return false;
-      const isOutOfGuesses = guesses.length >= maxGuessesForMode;
+      const parsedData = JSON.parse(savedData);
 
-      // If we have saved data, we assume they played and either won or lost!
+      // 3. Extract the array of guesses (Handles both arrays and objects)
+      let guesses = [];
+      if (Array.isArray(parsedData)) {
+        guesses = parsedData;
+      } else if (parsedData && Array.isArray(parsedData.guesses)) {
+        guesses = parsedData.guesses;
+      }
+
+      // If the array is empty, they haven't guessed yet. Keep it locked.
+      if (guesses.length === 0) return false;
+
+      // If we made it here, they have played today! Unlock the stats.
       return true;
     } catch (e) {
+      console.error("Anti-cheat check failed:", e);
       return false;
     }
   };
@@ -161,13 +181,31 @@ export default function GlobalStatsModal({ targetDateStr, onClose }) {
 
                     {/* --- SPOILER MASK LOGIC --- */}
                     {isFinished ? (
-                      <ul style={{ margin: "5px 0 0 0", paddingLeft: "20px" }}>
-                        {top5.map(([name, count]) => (
-                          <li key={name}>
-                            {name} ({count} guesses)
-                          </li>
-                        ))}
-                      </ul>
+                      top5.length > 0 ? (
+                        <ul
+                          style={{
+                            margin: "5px 0 0 0",
+                            paddingLeft: "20px",
+                            color: "#e0e6f8",
+                          }}
+                        >
+                          {top5.map(([name, count]) => (
+                            <li key={name}>
+                              {name} ({count} guesses)
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <div
+                          style={{
+                            marginTop: "5px",
+                            color: "#6c758f",
+                            fontStyle: "italic",
+                          }}
+                        >
+                          No specific guesses recorded today yet!
+                        </div>
+                      )
                     ) : (
                       <div
                         style={{
