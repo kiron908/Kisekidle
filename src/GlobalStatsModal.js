@@ -10,10 +10,10 @@ const MODES = [
     maxGuesses: 10,
   },
   {
-    id: "location_stats",
-    label: "Location Mode",
-    storageKey: "kisekidle-locations",
-    maxGuesses: 5,
+    id: "quote_stats",
+    label: "Quote Mode",
+    storageKey: "kisekidle-quotes",
+    maxGuesses: 6,
   },
   {
     id: "music_stats",
@@ -22,10 +22,10 @@ const MODES = [
     maxGuesses: 6,
   },
   {
-    id: "quote_stats",
-    label: "Quote Mode",
-    storageKey: "kisekidle-quotes",
-    maxGuesses: 6,
+    id: "location_stats",
+    label: "Location Mode",
+    storageKey: "kisekidle-locations",
+    maxGuesses: 5,
   },
   {
     id: "trivia_stats",
@@ -130,20 +130,29 @@ export default function GlobalStatsModal({ targetDateStr, onClose }) {
             style={{ display: "flex", flexDirection: "column", gap: "20px" }}
           >
             {MODES.map((mode) => {
-              const data = statsData[mode.id];
-              if (!data) return null;
+              // Safely grab the data, or provide an empty template if nobody has played today!
+              const data = statsData[mode.id] || {
+                totalPlays: 0,
+                totalWins: 0,
+                totalWinningAttempts: 0,
+                guessTally: {},
+              };
 
               const isFinished = checkIfFinished(
                 mode.storageKey,
                 mode.maxGuesses
               );
-              const winRate = Math.round(
-                (data.totalWins / data.totalPlays) * 100
-              );
+
+              // Prevent dividing by zero errors!
+              const winRate =
+                data.totalPlays > 0
+                  ? Math.round((data.totalWins / data.totalPlays) * 100)
+                  : 0;
               const avgAttempts =
                 data.totalWins > 0
                   ? (data.totalWinningAttempts / data.totalWins).toFixed(1)
                   : 0;
+
               const top5 = getTop5(data.guessTally);
 
               return (
@@ -203,7 +212,7 @@ export default function GlobalStatsModal({ targetDateStr, onClose }) {
                             fontStyle: "italic",
                           }}
                         >
-                          No specific guesses recorded today yet!
+                          No specific guesses recorded yet!
                         </div>
                       )
                     ) : (

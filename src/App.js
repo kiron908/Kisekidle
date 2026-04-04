@@ -320,30 +320,27 @@ function CharacterMode({
           // 1. Point to today's specific document in the database
           const statsRef = doc(db, "character_stats", targetDateStr);
 
-          // 2. Safely add +1 to today's stats.
-          // (merge: true ensures it creates the document if it's the first play of the day!)
-          // Grab the name of their most recent guess to log it!
-          const lastGuessName =
-            guessedCharacters.length > 0
-              ? guessedCharacters[guessedCharacters.length - 1].name
-              : "Unknown";
+          // 2. Build the base stats payload WITH a real guessTally object
+          const updateData = {
+            totalPlays: increment(1),
+            totalWins: hasWon ? increment(1) : increment(0),
+            totalWinningAttempts: hasWon
+              ? increment(guessedCharacters.length)
+              : increment(0),
+            guessTally: {}, // <-- Create the actual folder here!
+          };
 
-          await setDoc(
-            statsRef,
-            {
-              totalPlays: increment(1),
-              totalWins: hasWon ? increment(1) : increment(0),
-              // Track total winning attempts to calculate the average later!
-              totalWinningAttempts: hasWon
-                ? increment(guessedCharacters.length)
-                : increment(0),
-              // Keep a tally of every specific character guessed
-              [`guessTally.${lastGuessName}`]: increment(1),
-            },
-            { merge: true }
-          );
+          // 3. Loop through EVERY guess and place it INSIDE the folder
+          guessedCharacters.forEach((char) => {
+            if (char && char.name) {
+              updateData.guessTally[char.name] = increment(1);
+            }
+          });
 
-          // 3. Immediately pull the updated numbers back down to show the player
+          // 4. Safely send the whole package to Firebase
+          await setDoc(statsRef, updateData, { merge: true });
+
+          //Immediately pull the updated numbers back down to show the player
           const updatedDoc = await getDoc(statsRef);
           if (updatedDoc.exists()) {
             setGlobalStats(updatedDoc.data());
@@ -494,6 +491,22 @@ function CharacterMode({
           <p>
             The correct character was <strong>{targetCharacter.name}</strong>.
           </p>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            style={{
+              padding: "10px",
+              margin: "15px 0",
+              backgroundColor: "#4a90e2",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              width: "100%",
+            }}
+          >
+            📊 View Global Stats
+          </button>
+
           <button className="share-button" onClick={handleShare}>
             {isCopied ? "📋 Copied to Clipboard!" : "📤 Share Results"}
           </button>
@@ -680,6 +693,8 @@ function QuoteMode({
   const guessesNeededForGame = Math.max(0, 3 - wrongGuessesCount);
   const guessesNeededForRecipient = Math.max(0, 4 - wrongGuessesCount);
 
+  const [globalStats, setGlobalStats] = useState(null);
+
   const handleInputChange = (e) => {
     const value = e.target.value;
     setCurrentGuess(value);
@@ -692,6 +707,41 @@ function QuoteMode({
       setSuggestions([]);
     }
   };
+
+  // --- QUOTE MODE TRACKING ---
+  useEffect(() => {
+    if ((hasWon || isGameOver) && !globalStats) {
+      const updateAndFetchStats = async () => {
+        try {
+          const statsRef = doc(db, "quote_stats", targetDateStr);
+          const updateData = {
+            totalPlays: increment(1),
+            totalWins: hasWon ? increment(1) : increment(0),
+            totalWinningAttempts: hasWon
+              ? increment(guessedCharacters.length)
+              : increment(0),
+            guessTally: {},
+          };
+          guessedCharacters.forEach((char) => {
+            if (char && char.name)
+              updateData.guessTally[char.name] = increment(1);
+          });
+          await setDoc(statsRef, updateData, { merge: true });
+          const updatedDoc = await getDoc(statsRef);
+          if (updatedDoc.exists()) setGlobalStats(updatedDoc.data());
+        } catch (error) {
+          console.error("Firebase Error:", error);
+        }
+      };
+      updateAndFetchStats();
+    }
+  }, [
+    hasWon,
+    isGameOver,
+    guessedCharacters.length,
+    targetDateStr,
+    globalStats,
+  ]);
 
   const handleGuess = (selectedChar) => {
     if (hasWon || isGameOver) return;
@@ -752,6 +802,22 @@ function QuoteMode({
           <p>
             The character was <strong>{targetQuote.character}</strong>.
           </p>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            style={{
+              padding: "10px",
+              margin: "15px 0",
+              backgroundColor: "#4a90e2",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              width: "100%",
+            }}
+          >
+            📊 View Global Stats
+          </button>
+
           <button className="share-button" onClick={handleShare}>
             {isCopied ? "📋 Copied to Clipboard!" : "📤 Share Results"}
           </button>
@@ -764,6 +830,22 @@ function QuoteMode({
           <p>
             The correct character was <strong>{targetQuote.character}</strong>.
           </p>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            style={{
+              padding: "10px",
+              margin: "15px 0",
+              backgroundColor: "#4a90e2",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              width: "100%",
+            }}
+          >
+            📊 View Global Stats
+          </button>
+
           <button className="share-button" onClick={handleShare}>
             {isCopied ? "📋 Copied to Clipboard!" : "📤 Share Results"}
           </button>
@@ -977,6 +1059,35 @@ function MusicMode({
     }
   };
 
+  // --- MUSIC MODE TRACKING ---
+  useEffect(() => {
+    if ((hasWon || isGameOver) && !globalStats) {
+      const updateAndFetchStats = async () => {
+        try {
+          const statsRef = doc(db, "music_stats", targetDateStr);
+          const updateData = {
+            totalPlays: increment(1),
+            totalWins: hasWon ? increment(1) : increment(0),
+            totalWinningAttempts: hasWon
+              ? increment(guessedTracks.length)
+              : increment(0),
+            guessTally: {},
+          };
+          guessedTracks.forEach((track) => {
+            if (track && track.title)
+              updateData.guessTally[track.title] = increment(1);
+          });
+          await setDoc(statsRef, updateData, { merge: true });
+          const updatedDoc = await getDoc(statsRef);
+          if (updatedDoc.exists()) setGlobalStats(updatedDoc.data());
+        } catch (error) {
+          console.error("Firebase Error:", error);
+        }
+      };
+      updateAndFetchStats();
+    }
+  }, [hasWon, isGameOver, guessedTracks.length, targetDateStr, globalStats]);
+
   const handleGuess = (selectedTrack) => {
     if (hasWon || isGameOver) return;
     if (guessedTracks.find((t) => t.id === selectedTrack.id)) return;
@@ -1105,6 +1216,22 @@ function MusicMode({
           <p>
             The track was <strong>{targetTrack.title}</strong>.
           </p>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            style={{
+              padding: "10px",
+              margin: "15px 0",
+              backgroundColor: "#4a90e2",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              width: "100%",
+            }}
+          >
+            📊 View Global Stats
+          </button>
+
           <button className="share-button" onClick={handleShare}>
             {isCopied ? "📋 Copied to Clipboard!" : "📤 Share Results"}
           </button>
@@ -1117,6 +1244,22 @@ function MusicMode({
           <p>
             The correct track was <strong>{targetTrack.title}</strong>.
           </p>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            style={{
+              padding: "10px",
+              margin: "15px 0",
+              backgroundColor: "#4a90e2",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              width: "100%",
+            }}
+          >
+            📊 View Global Stats
+          </button>
+
           <button className="share-button" onClick={handleShare}>
             {isCopied ? "📋 Copied to Clipboard!" : "📤 Share Results"}
           </button>
@@ -1304,6 +1447,35 @@ function LocationMode({
     }
   };
 
+  // --- LOCATION MODE TRACKING ---
+  useEffect(() => {
+    if ((hasWon || isGameOver) && !globalStats) {
+      const updateAndFetchStats = async () => {
+        try {
+          const statsRef = doc(db, "location_stats", targetDateStr);
+          const updateData = {
+            totalPlays: increment(1),
+            totalWins: hasWon ? increment(1) : increment(0),
+            totalWinningAttempts: hasWon
+              ? increment(guessedLocations.length)
+              : increment(0),
+            guessTally: {},
+          };
+          guessedLocations.forEach((loc) => {
+            if (loc && loc.locationName)
+              updateData.guessTally[loc.locationName] = increment(1);
+          });
+          await setDoc(statsRef, updateData, { merge: true });
+          const updatedDoc = await getDoc(statsRef);
+          if (updatedDoc.exists()) setGlobalStats(updatedDoc.data());
+        } catch (error) {
+          console.error("Firebase Error:", error);
+        }
+      };
+      updateAndFetchStats();
+    }
+  }, [hasWon, isGameOver, guessedLocations.length, targetDateStr, globalStats]);
+
   const handleGuess = (selectedLoc) => {
     if (hasWon || isGameOver) return;
     if (guessedLocations.find((l) => l.id === selectedLoc.id)) return;
@@ -1429,6 +1601,22 @@ function LocationMode({
           <p>
             The location was <strong>{targetLocation.locationName}</strong>.
           </p>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            style={{
+              padding: "10px",
+              margin: "15px 0",
+              backgroundColor: "#4a90e2",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              width: "100%",
+            }}
+          >
+            📊 View Global Stats
+          </button>
+
           <button className="share-button" onClick={handleShare}>
             {isCopied ? "📋 Copied to Clipboard!" : "📤 Share Results"}
           </button>
@@ -1442,6 +1630,22 @@ function LocationMode({
             The correct location was{" "}
             <strong>{targetLocation.locationName}</strong>.
           </p>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            style={{
+              padding: "10px",
+              margin: "15px 0",
+              backgroundColor: "#4a90e2",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              width: "100%",
+            }}
+          >
+            📊 View Global Stats
+          </button>
+
           <button className="share-button" onClick={handleShare}>
             {isCopied ? "📋 Copied to Clipboard!" : "📤 Share Results"}
           </button>
@@ -1840,6 +2044,35 @@ function TriviaMode({
   const guessesLeft = MAX_GUESSES - guessedOptions.length;
   const isGameOver = guessesLeft <= 0 && !hasWon;
 
+  // --- TRIVIA TRACKING ---
+  useEffect(() => {
+    if ((hasWon || isGameOver) && !globalStats) {
+      const updateAndFetchStats = async () => {
+        try {
+          const statsRef = doc(db, "trivia_stats", targetDateStr);
+          const updateData = {
+            totalPlays: increment(1),
+            totalWins: hasWon ? increment(1) : increment(0),
+            totalWinningAttempts: hasWon
+              ? increment(guessedOptions.length)
+              : increment(0),
+            guessTally: {},
+          };
+          // Just uses the string directly!
+          guessedOptions.forEach((option) => {
+            if (option) updateData.guessTally[option] = increment(1);
+          });
+          await setDoc(statsRef, updateData, { merge: true });
+          const updatedDoc = await getDoc(statsRef);
+          if (updatedDoc.exists()) setGlobalStats(updatedDoc.data());
+        } catch (error) {
+          console.error("Firebase Error:", error);
+        }
+      };
+      updateAndFetchStats();
+    }
+  }, [hasWon, isGameOver, guessedOptions.length, targetDateStr, globalStats]);
+
   const handleGuess = (selectedOption) => {
     if (hasWon || isGameOver) return;
     if (guessedOptions.includes(selectedOption)) return;
@@ -1965,6 +2198,22 @@ function TriviaMode({
           />
           <h3>🎉 Correct! 🎉</h3>
           <p>Great job knowing your lore!</p>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            style={{
+              padding: "10px",
+              margin: "15px 0",
+              backgroundColor: "#4a90e2",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              width: "100%",
+            }}
+          >
+            📊 View Global Stats
+          </button>
+
           <button className="share-button" onClick={handleShare}>
             {isCopied ? "📋 Copied to Clipboard!" : "📤 Share Results"}
           </button>
@@ -1977,6 +2226,22 @@ function TriviaMode({
           <p>
             The correct answer was <strong>{targetTrivia.answer}</strong>.
           </p>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            style={{
+              padding: "10px",
+              margin: "15px 0",
+              backgroundColor: "#4a90e2",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              width: "100%",
+            }}
+          >
+            📊 View Global Stats
+          </button>
+
           <button className="share-button" onClick={handleShare}>
             {isCopied ? "📋 Copied to Clipboard!" : "📤 Share Results"}
           </button>
@@ -2037,6 +2302,35 @@ function CraftsMode({
       setSuggestions([]);
     }
   };
+
+  // --- CRAFTS MODE TRACKING ---
+  useEffect(() => {
+    if ((hasWon || isGameOver) && !globalStats) {
+      const updateAndFetchStats = async () => {
+        try {
+          const statsRef = doc(db, "crafts_stats", targetDateStr);
+          const updateData = {
+            totalPlays: increment(1),
+            totalWins: hasWon ? increment(1) : increment(0),
+            totalWinningAttempts: hasWon
+              ? increment(guessedCrafts.length)
+              : increment(0),
+            guessTally: {},
+          };
+          guessedCrafts.forEach((craft) => {
+            if (craft && craft.craftName)
+              updateData.guessTally[craft.craftName] = increment(1);
+          });
+          await setDoc(statsRef, updateData, { merge: true });
+          const updatedDoc = await getDoc(statsRef);
+          if (updatedDoc.exists()) setGlobalStats(updatedDoc.data());
+        } catch (error) {
+          console.error("Firebase Error:", error);
+        }
+      };
+      updateAndFetchStats();
+    }
+  }, [hasWon, isGameOver, guessedCrafts.length, targetDateStr, globalStats]);
 
   const handleGuess = (selectedCraft) => {
     if (hasWon || isGameOver) return;
@@ -2170,6 +2464,22 @@ function CraftsMode({
             The craft was <strong>{targetCraft.craftName}</strong> used by{" "}
             <strong>{targetCraft.character}</strong>.
           </p>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            style={{
+              padding: "10px",
+              margin: "15px 0",
+              backgroundColor: "#4a90e2",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              width: "100%",
+            }}
+          >
+            📊 View Global Stats
+          </button>
+
           <button className="share-button" onClick={handleShare}>
             {isCopied ? "📋 Copied to Clipboard!" : "📤 Share Results"}
           </button>
@@ -2183,6 +2493,22 @@ function CraftsMode({
             The correct craft was <strong>{targetCraft.craftName}</strong> used
             by <strong>{targetCraft.character}</strong>.
           </p>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            style={{
+              padding: "10px",
+              margin: "15px 0",
+              backgroundColor: "#4a90e2",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              width: "100%",
+            }}
+          >
+            📊 View Global Stats
+          </button>
+
           <button className="share-button" onClick={handleShare}>
             {isCopied ? "📋 Copied to Clipboard!" : "📤 Share Results"}
           </button>
@@ -2295,6 +2621,41 @@ function SilhouetteMode({
     }
   };
 
+  // --- SILHOUETTE TRACKING ---
+  useEffect(() => {
+    if ((hasWon || isGameOver) && !globalStats) {
+      const updateAndFetchStats = async () => {
+        try {
+          const statsRef = doc(db, "silhouette_stats", targetDateStr);
+          const updateData = {
+            totalPlays: increment(1),
+            totalWins: hasWon ? increment(1) : increment(0),
+            totalWinningAttempts: hasWon
+              ? increment(guessedCharacters.length)
+              : increment(0),
+            guessTally: {},
+          };
+          // Just uses the string directly!
+          guessedCharacters.forEach((char) => {
+            if (char) updateData.guessTally[char] = increment(1);
+          });
+          await setDoc(statsRef, updateData, { merge: true });
+          const updatedDoc = await getDoc(statsRef);
+          if (updatedDoc.exists()) setGlobalStats(updatedDoc.data());
+        } catch (error) {
+          console.error("Firebase Error:", error);
+        }
+      };
+      updateAndFetchStats();
+    }
+  }, [
+    hasWon,
+    isGameOver,
+    guessedCharacters.length,
+    targetDateStr,
+    globalStats,
+  ]);
+
   const handleGuess = (selectedCharacter) => {
     if (hasWon || isGameOver) return;
     if (guessedCharacters.includes(selectedCharacter.name)) return;
@@ -2381,6 +2742,22 @@ function SilhouetteMode({
           <p>
             It was <strong>{targetSilhouette.character}</strong>.
           </p>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            style={{
+              padding: "10px",
+              margin: "15px 0",
+              backgroundColor: "#4a90e2",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              width: "100%",
+            }}
+          >
+            📊 View Global Stats
+          </button>
+
           <button className="share-button" onClick={handleShare}>
             {isCopied ? "📋 Copied to Clipboard!" : "📤 Share Results"}
           </button>
@@ -2393,6 +2770,22 @@ function SilhouetteMode({
           <p>
             The character was <strong>{targetSilhouette.character}</strong>.
           </p>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            style={{
+              padding: "10px",
+              margin: "15px 0",
+              backgroundColor: "#4a90e2",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              width: "100%",
+            }}
+          >
+            📊 View Global Stats
+          </button>
+
           <button className="share-button" onClick={handleShare}>
             {isCopied ? "📋 Copied to Clipboard!" : "📤 Share Results"}
           </button>
