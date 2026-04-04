@@ -1039,6 +1039,8 @@ function MusicMode({
   const guessesNeededForType = Math.max(0, 2 - wrongGuessesCount);
   const guessesNeededForGame = Math.max(0, 4 - wrongGuessesCount);
 
+  const [globalStats, setGlobalStats] = useState(null);
+
   const handleInputChange = (e) => {
     const value = e.target.value;
     setCurrentGuess(value);
@@ -1412,6 +1414,8 @@ function LocationMode({
   const [isNationRevealed, setIsNationRevealed] = useState(false);
   const guessesNeededForNation = Math.max(0, 3 - wrongGuessesCount);
 
+  const [globalStats, setGlobalStats] = useState(null);
+
   // --- CAROUSEL LOGIC ---
   // If the game is over, unlock all images. Otherwise, limit it by wrong guesses.
   const maxRevealedIndex =
@@ -1423,8 +1427,10 @@ function LocationMode({
 
   // Automatically jump to the newest image whenever a new clue is unlocked
   useEffect(() => {
-    setCurrentImageIndex(maxRevealedIndex);
-  }, [maxRevealedIndex]);
+    if (!hasWon && !isGameOver) {
+      setCurrentImageIndex(maxRevealedIndex);
+    }
+  }, [maxRevealedIndex, hasWon, isGameOver]);
 
   const currentImageUrl = targetLocation.imageFilePaths[currentImageIndex];
 
@@ -1561,31 +1567,40 @@ function LocationMode({
           marginBottom: "30px",
         }}
       >
-        {/* This creates an array of buttons exactly matching the number of unlocked images */}
-        {Array.from({ length: maxRevealedIndex + 1 }).map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentImageIndex(index)}
-            style={{
-              width: "36px",
-              height: "36px",
-              borderRadius: "6px",
-              border: "none",
-              backgroundColor:
-                currentImageIndex === index ? "#4a90e2" : "#2d3446", // Highlights the active image
-              color: "white",
-              fontWeight: "bold",
-              cursor: "pointer",
-              transition: "all 0.2s ease",
-              boxShadow:
-                currentImageIndex === index
+        {/* Show all 5 buttons always, but gray out locked ones */}
+        {[0, 1, 2, 3, 4].map((index) => {
+          const isUnlocked = index <= maxRevealedIndex;
+          const isActive = currentImageIndex === index;
+
+          return (
+            <button
+              key={index}
+              onClick={() => isUnlocked && setCurrentImageIndex(index)}
+              disabled={!isUnlocked} // Disables clicking if locked
+              style={{
+                width: "36px",
+                height: "36px",
+                borderRadius: "6px",
+                border: "none",
+                backgroundColor: isActive
+                  ? "#4a90e2"
+                  : isUnlocked
+                  ? "#2d3446"
+                  : "#1a1e2a",
+                color: isUnlocked ? "white" : "#6c758f", // Dim text if locked
+                opacity: isUnlocked ? 1 : 0.5, // Faded look
+                fontWeight: "bold",
+                cursor: isUnlocked ? "pointer" : "not-allowed",
+                transition: "all 0.2s ease",
+                boxShadow: isActive
                   ? "0 0 8px rgba(74, 144, 226, 0.5)"
                   : "none",
-            }}
-          >
-            {index + 1}
-          </button>
-        ))}
+              }}
+            >
+              {index + 1}
+            </button>
+          );
+        })}
       </div>
 
       {hasWon && (
@@ -2044,6 +2059,8 @@ function TriviaMode({
   const guessesLeft = MAX_GUESSES - guessedOptions.length;
   const isGameOver = guessesLeft <= 0 && !hasWon;
 
+  const [globalStats, setGlobalStats] = useState(null);
+
   // --- TRIVIA TRACKING ---
   useEffect(() => {
     if ((hasWon || isGameOver) && !globalStats) {
@@ -2286,6 +2303,8 @@ function CraftsMode({
   const [isGameRevealed, setIsGameRevealed] = useState(false);
   const guessesNeededForGender = Math.max(0, 2 - wrongGuessesCount);
   const guessesNeededForGame = Math.max(0, 4 - wrongGuessesCount);
+
+  const [globalStats, setGlobalStats] = useState(null);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -2586,6 +2605,7 @@ function SilhouetteMode({
   );
   const guessedCharacters = storedGuesses || [];
   const [isCopied, setIsCopied] = useState(false);
+  const [globalStats, setGlobalStats] = useState(null);
 
   // UPDATED: Now uses the SILHOUETTES array from data.js!
   const [targetSilhouette] = useState(getDailyItem(SILHOUETTES, targetDateObj));
